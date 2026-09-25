@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base window theme; all UI is drawn by Compose (Material 3). -->
+    <style name="Theme.ChickieRunway" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/sky_blue</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+    <!-- Themed splash: sky background + small hero emblem (15 KB PNG). -->
+    <style name="Theme.ChickieRunway.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_emblem</item>
+        <item name="postSplashScreenTheme">@style/Theme.ChickieRunway</item>
+    </style>
+</resources>

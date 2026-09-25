@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- "Sunny Road Dash" palette -->
+    <color name="sun_yolk">#FFFFC629</color>
+    <color name="beak_orange">#FFE56F01</color>
+    <color name="sky_blue">#FF4DAEFD</color>
+    <color name="asphalt">#FF3F3C47</color>
+    <color name="night_navy">#FF171C2F</color>
+    <color name="cream">#FFFFF8E7</color>
+    <color name="splash_background">#FF4DAEFD</color>
+</resources>

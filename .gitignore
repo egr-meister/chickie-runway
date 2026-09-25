@@ -1,0 +1,28 @@
+# Gradle / build
+.gradle/
+build/
+**/build/
+!gradle/wrapper/gradle-wrapper.jar
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.ap_
+output-metadata.json
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+.kotlin/
+
+# Signing secrets — NEVER commit
+*.jks
+*.keystore
+*.p12
+*.pfx
+keystore.properties
+signing.env
+*.b64
