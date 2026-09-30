@@ -1,9 +1,22 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
 }
+
+// ---------------------------------------------------------------------------------------------
+// Integration keys — read from local.properties (never committed); CI may pass them as env vars.
+// ---------------------------------------------------------------------------------------------
+val localProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.exists()) file.inputStream().use { load(it) }
+}
+
+fun secret(name: String): String =
+    System.getenv(name)?.takeIf { it.isNotBlank() } ?: localProperties.getProperty(name, "").trim()
 
 // ---------------------------------------------------------------------------------------------
 // Release signing — read ONLY from environment variables. There is no fallback to debug signing.
@@ -31,9 +44,14 @@ android {
         applicationId = "com.chickierunway.game"
         minSdk = 24
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.0.1"
         vectorDrawables { useSupportLibrary = true }
+
+        // buildConfigField pastes the value into generated Java verbatim, hence the escaped quotes.
+        buildConfigField("String", "ONESIGNAL_APP_ID", "\"${secret("ONESIGNAL_APP_ID")}\"")
+        buildConfigField("String", "APPSFLYER_DEV_KEY", "\"${secret("APPSFLYER_DEV_KEY")}\"")
+        buildConfigField("String", "OFFER_BASE_URL", "\"${secret("OFFER_BASE_URL")}\"")
     }
 
     signingConfigs {
@@ -76,7 +94,7 @@ android {
 
     buildFeatures {
         compose = true
-        buildConfig = false
+        buildConfig = true
     }
 
     packaging {
@@ -154,6 +172,10 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.serialization.core)
     implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.appsflyer)
+    implementation(libs.onesignal)
+    implementation(libs.androidx.webkit)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.serialization.json)

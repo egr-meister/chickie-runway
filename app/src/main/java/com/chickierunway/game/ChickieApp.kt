@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 private val Context.gameDataStore: DataStore<Preferences> by preferencesDataStore(name = "chickie_runway")
 
 /** Creates the single repository and sound manager (no DI framework). */
-class ChickieApp : Application() {
+open class ChickieApp : Application() {
 
     lateinit var repository: GameRepository
         private set

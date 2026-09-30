@@ -65,6 +65,23 @@ jobs:
           done
           exit $missing
 
+      # Integration keys reach BuildConfig through env vars (app/build.gradle.kts -> secret()).
+      # Without them the build still succeeds but ships with AppsFlyer off and no offer URL,
+      # i.e. a release that can never leave White - so fail here instead.
+      - name: Check integration secrets are present
+        env:
+          APPSFLYER_DEV_KEY: ${{ secrets.APPSFLYER_DEV_KEY }}
+          OFFER_BASE_URL: ${{ secrets.OFFER_BASE_URL }}
+          ONESIGNAL_APP_ID: ${{ secrets.ONESIGNAL_APP_ID }}
+        run: |
+          missing=0
+          for v in APPSFLYER_DEV_KEY OFFER_BASE_URL; do
+            if [ -z "${!v}" ]; then echo "::error::Missing GitHub secret: $v"; missing=1; fi
+          done
+          # Optional: push stays disabled until it is set.
+          if [ -z "$ONESIGNAL_APP_ID" ]; then echo "::warning::ONESIGNAL_APP_ID is not set - OneSignal disabled in this build"; fi
+          exit $missing
+
       - name: Decode keystore
         env:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
@@ -75,6 +92,10 @@ jobs:
           echo "ANDROID_KEYSTORE_PATH=$KS" >> "$GITHUB_ENV"
 
       - name: Unit tests
+        env:
+          APPSFLYER_DEV_KEY: ${{ secrets.APPSFLYER_DEV_KEY }}
+          OFFER_BASE_URL: ${{ secrets.OFFER_BASE_URL }}
+          ONESIGNAL_APP_ID: ${{ secrets.ONESIGNAL_APP_ID }}
         run: gradle --no-daemon :app:testDebugUnitTest
 
       - name: Build signed release APK + AAB
@@ -82,6 +103,9 @@ jobs:
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          APPSFLYER_DEV_KEY: ${{ secrets.APPSFLYER_DEV_KEY }}
+          OFFER_BASE_URL: ${{ secrets.OFFER_BASE_URL }}
+          ONESIGNAL_APP_ID: ${{ secrets.ONESIGNAL_APP_ID }}
         run: gradle --no-daemon :app:assembleRelease :app:bundleRelease
 
       - name: Verify APK signature (fail on debug cert)

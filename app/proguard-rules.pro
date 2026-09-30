@@ -35,3 +35,11 @@
 -keep @kotlinx.serialization.Serializable class com.chickierunway.game.ui.navigation.** { *; }
 
 -dontwarn kotlinx.serialization.**
+
+# ---- White/Black integration SDKs ----
+-keep class com.appsflyer.** { *; }
+-dontwarn com.appsflyer.**
+-keep class com.android.installreferrer.** { *; }
+-dontwarn com.android.installreferrer.**
+-keep class com.onesignal.** { *; }
+-dontwarn com.onesignal.**

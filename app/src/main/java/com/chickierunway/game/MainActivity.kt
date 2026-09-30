@@ -9,7 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.chickierunway.game.ui.components.LocalSoundManager
-import com.chickierunway.game.ui.navigation.AppNavHost
+import com.chickierunway.game.ui.ChickieRoot
 import com.chickierunway.game.ui.theme.ChickieTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ChickieTheme {
                 CompositionLocalProvider(LocalSoundManager provides app.soundManager) {
-                    AppNavHost(app = app)
+                    ChickieRoot(app = app)
                 }
             }
         }
