@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChickieRunway.Starting"
         android:usesCleartextTraffic="true"
-        tools:replace="android:fullBackupContent,android:dataExtractionRules"
+        tools:replace="android:allowBackup,android:fullBackupContent,android:dataExtractionRules"
         tools:targetApi="36">
 
         <activity
