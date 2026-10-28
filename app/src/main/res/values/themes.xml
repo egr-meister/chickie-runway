@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base window theme; all UI is drawn by Compose (Material 3). -->
-    <style name="Theme.ChickieRunway" parent="android:Theme.Material.Light.NoActionBar">
+    <!--
+        Base window theme; all UI is drawn by Compose (Material 3). It must descend from
+        Theme.AppCompat: MainActivity is an AppCompatActivity (required for per-app language
+        below API 33) and crashes on a non-AppCompat theme.
+    -->
+    <style name="Theme.ChickieRunway" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/sky_blue</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>

@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common -->
+    <string name="action_back">Retour</string>
+    <string name="action_continue">Continuer</string>
+    <string name="action_restart">Recommencer</string>
+    <string name="action_menu">Menu</string>
+    <string name="action_pause">Pause</string>
+    <string name="action_pause_options">Pause et options</string>
+    <string name="action_got_it">Compris</string>
+    <string name="action_cancel">Annuler</string>
+    <string name="action_reset">Réinitialiser</string>
+    <string name="action_retry">Réessayer</string>
+    <string name="paused">En pause</string>
+    <string name="error_title">Oups, mauvais virage !</string>
+    <string name="cd_mascot_surprised">Chickie surprise</string>
+    <string name="cd_mascot_reacting">Chickie réagit à votre score</string>
+    <string name="cd_mascot_cheering">Chickie fait la fête</string>
+    <string name="cd_mascot_clock">Chickie surprise par le chrono</string>
+    <string name="page_load_error">Impossible de charger la page.</string>
+
+    <!-- Home -->
+    <string name="main_start">Départ</string>
+    <string name="main_tagline">À vos marques, prêts, courez !</string>
+    <string name="cd_main_runner">Chickie court sur la route</string>
+
+    <!-- Menu -->
+    <string name="cd_back_to_start">Retour au départ</string>
+    <string name="menu_quiz_chip">Quiz %1$d/%2$d</string>
+    <string name="menu_quiz_chip_cd">Meilleur total du quiz : %1$d sur %2$d</string>
+    <string name="pairs_chip">Paires %1$d/%2$d</string>
+    <string name="menu_pairs_chip_cd">Niveaux de paires réussis : %1$d sur %2$d</string>
+    <string name="menu_quiz">Quiz</string>
+    <string name="pairs_title">Jeu des paires</string>
+    <string name="results_title">Résultats</string>
+    <string name="settings_title">Paramètres</string>
+
+    <!-- Quiz -->
+    <string name="quiz_title">Quiz de la ferme</string>
+    <string name="quiz_choose_difficulty">Choisissez la difficulté</string>
+    <string name="quiz_category_cd">%1$s, difficulté %2$d sur 3. %3$s. Meilleur score %4$d sur %5$d.</string>
+    <string name="quiz_play">Jouer : %1$s</string>
+    <string name="quiz_screen_title">Quiz %1$s</string>
+    <string name="quiz_question_cd">Question %1$d sur %2$d</string>
+    <string name="quiz_answer_correct_cd">Bonne réponse</string>
+    <string name="quiz_answer_wrong_cd">Mauvaise réponse</string>
+    <string name="quiz_feedback_right">Bravo ! Cot-cot-génial !</string>
+    <string name="quiz_feedback_wrong">Oups — la bonne réponse est en vert.</string>
+    <string name="quiz_paused_status">Question %1$d sur %2$d  ·  Score %3$d</string>
+    <string name="quiz_result_perfect">Course parfaite — un vrai champion de la ferme !</string>
+    <string name="quiz_result_great">Belle course ! Le poulailler est fier.</string>
+    <string name="quiz_result_nice">Bel essai — continuez à courir !</string>
+    <string name="quiz_result_bumpy">Route cahoteuse. Retentez votre chance !</string>
+    <string name="quiz_complete">Quiz terminé</string>
+    <string name="result_score">Score : %1$d/%2$d</string>
+    <string name="result_best">Record : %1$d/%2$d</string>
+
+    <!-- Levels / Matching Pairs -->
+    <string name="levels_cleared">Réussis %1$d/%2$d</string>
+    <string name="levels_cleared_cd">Niveaux réussis : %1$d sur %2$d</string>
+    <string name="rules_title">Règles du jeu</string>
+    <string name="level_locked">Verrouillé</string>
+    <string name="level_cleared">★ Réussi</string>
+    <string name="level_best">Record %1$d/%2$d</string>
+    <plurals name="level_pairs">
+        <item quantity="one">%d paire</item>
+        <item quantity="many">%d paires</item>
+        <item quantity="other">%d paires</item>
+    </plurals>
+    <string name="level_cd_locked">Niveau %1$d, verrouillé. Réussissez le niveau %2$d pour le débloquer.</string>
+    <string name="level_cd_cleared">Niveau %1$d, réussi. Record : %2$d paires sur %3$d.</string>
+    <string name="level_cd_open">Niveau %1$d, %2$d paires. Record : %3$d.</string>
+    <string name="pairs_level_title">Niveau %1$d</string>
+    <string name="pairs_hurry">Vite !</string>
+    <string name="pairs_time_cd">Temps restant : %1$d secondes</string>
+    <string name="pairs_time_cd_hurry">Temps restant : %1$d secondes, dépêchez-vous</string>
+    <string name="pairs_matched_cd">%1$d paires trouvées sur %2$d</string>
+    <string name="pairs_paused_status">Niveau %1$d  ·  %2$s restantes</string>
+    <string name="card_matched_cd">Carte %1$d, %2$s, paire trouvée</string>
+    <string name="card_faceup_cd">Carte %1$d, %2$s</string>
+    <string name="card_facedown_cd">Carte %1$d, face cachée</string>
+    <string name="card_state_matched">Paire trouvée</string>
+    <string name="pairs_won">Bien joué</string>
+    <string name="pairs_lost">Temps écoulé</string>
+    <string name="pairs_result_pairs">Paires : %1$d/%2$d</string>
+    <string name="pairs_next_unlocked">Le niveau %1$d est débloqué. Continuez à courir !</string>
+    <string name="pairs_all_cleared">Les %1$d niveaux sont réussis — la route est à vous !</string>
+    <string name="pairs_time_up">Le chrono est écoulé. Recommencez pour réessayer.</string>
+
+    <!-- Results summary -->
+    <string name="summary_trip_log">Carnet de route</string>
+    <string name="summary_quiz_header">Quiz de la ferme — meilleurs scores</string>
+    <string name="summary_quiz_cd">Quiz %1$s : record %2$d sur %3$d</string>
+    <string name="summary_cleared">Réussis %1$d / %2$d</string>
+    <string name="summary_level_cleared_cd">Niveau %1$d : réussi</string>
+    <string name="summary_level_open_cd">Niveau %1$d : ouvert</string>
+    <string name="summary_level_locked_cd">Niveau %1$d : verrouillé</string>
+    <string name="summary_legend">✓ = réussi · nombre = ouvert ou verrouillé</string>
+
+    <!-- Rules -->
+    <string name="rules_how_to_play">Comment jouer</string>
+    <string name="rules_pairs_1">Touchez une carte pour la retourner, puis une autre.</string>
+    <string name="rules_pairs_2">Même image ? La paire reste ouverte. Différente ? Les deux se retournent.</string>
+    <string name="rules_pairs_3">Trouvez toutes les paires avant que le chrono n\'atteigne 0:00.</string>
+    <string name="rules_pairs_4">Réussir un niveau débloque le suivant — %1$d niveaux, plus de cartes et moins de temps par paire.</string>
+    <string name="rules_pairs_5">Mettez en pause à tout moment : le chrono s\'arrête pendant la pause.</string>
+    <string name="rules_example_cd">Exemple : %1$s</string>
+    <string name="rules_pair_equals">= ✓ paire</string>
+    <string name="rules_quiz_1">3 niveaux de difficulté — Facile, Moyen, Difficile — de 10 questions chacun.</string>
+    <string name="rules_quiz_2">Chaque question a 4 réponses et une seule est juste.</string>
+    <string name="rules_quiz_3">La bonne réponse devient verte (✓) ; un mauvais choix devient rouge (✗).</string>
+    <string name="rules_quiz_4">Votre meilleur score de chaque niveau est enregistré sur cet appareil.</string>
+
+    <!-- Navigation fallbacks -->
+    <string name="error_quiz_missing">Cette catégorie de quiz est introuvable. Choisissez-en une autre.</string>
+    <string name="error_quiz_result">Impossible de charger ce résultat. Vos meilleurs scores sont conservés.</string>
+    <string name="error_level_missing">Ce niveau n\'existe pas. Choisissez un niveau dans la liste.</string>
+    <string name="error_pairs_result">Impossible de charger ce résultat. Votre progression est conservée.</string>
+
+    <!-- Settings -->
+    <string name="settings_panel">Tableau de bord</string>
+    <string name="settings_sound">Effets sonores</string>
+    <string name="state_on">Activés</string>
+    <string name="state_off">Désactivés</string>
+    <string name="settings_theme">Thème</string>
+    <string name="theme_system">Système</string>
+    <string name="theme_light">Clair</string>
+    <string name="theme_dark">Sombre</string>
+    <string name="settings_accent">Couleur d\'accent</string>
+    <string name="accent_gold">Or</string>
+    <string name="accent_sky">Ciel</string>
+    <string name="accent_meadow">Prairie</string>
+    <string name="accent_berry">Baie</string>
+    <string name="state_selected_cd">%1$s, sélectionné</string>
+    <string name="settings_language">Langue</string>
+    <string name="settings_language_choose">Choisir la langue</string>
+    <string name="language_system">Langue du système</string>
+    <string name="settings_privacy">Politique de confidentialité</string>
+    <string name="settings_rate">Noter le jeu</string>
+    <string name="settings_reset">Réinitialiser la progression</string>
+    <string name="settings_reset_cd">Réinitialiser la progression. Une confirmation sera demandée.</string>
+    <string name="settings_storage_note">Vos scores et paramètres sont conservés sur cet appareil.</string>
+    <string name="settings_reset_title">Réinitialiser toute la progression ?</string>
+    <string name="settings_reset_text">Tous les meilleurs scores du quiz seront effacés et le jeu des paires reviendra au niveau 1. Cette action est irréversible.</string>
+    <string name="settings_reset_done">Progression réinitialisée</string>
+    <string name="settings_no_app">Aucune application pour ouvrir ce lien</string>
+
+    <!-- Item pictures -->
+    <string name="item_01">Drapeau à damier</string>
+    <string name="item_02">Signal piéton</string>
+    <string name="item_03">Panneau de virage</string>
+    <string name="item_04">Barrière routière</string>
+    <string name="item_05">Cône de signalisation</string>
+    <string name="item_06">Voiture jaune</string>
+    <string name="item_07">Bouche d\'incendie</string>
+    <string name="item_08">Feu tricolore</string>
+    <string name="item_09">Camionnette bleue</string>
+    <string name="item_10">Scooter rouge</string>
+    <string name="item_11">Pneu</string>
+    <string name="item_12">Pompe à essence</string>
+    <string name="item_13">Casque de chantier</string>
+    <string name="item_14">Passage piéton</string>
+    <string name="item_15">Borne routière</string>
+    <string name="item_16">Panneau stop</string>
+    <string name="item_17">Dos-d\'âne</string>
+    <string name="item_18">Lampadaire</string>
+    <string name="item_unknown">Image</string>
+
+    <!-- Quiz levels -->
+    <string name="quiz_level_easy">Facile</string>
+    <string name="quiz_level_medium">Moyen</string>
+    <string name="quiz_level_hard">Difficile</string>
+    <string name="quiz_tagline_easy">Les bases de la basse-cour</string>
+    <string name="quiz_tagline_medium">Poulailler et cultures</string>
+    <string name="quiz_tagline_hard">Pour les vrais experts de la ferme</string>
+
+    <!-- Quiz: easy -->
+    <string name="quiz_easy_q1">Quel cri fait la poule ?</string>
+    <string name="quiz_easy_q1_a">Cot-cot</string>
+    <string name="quiz_easy_q1_w1">Meuh</string>
+    <string name="quiz_easy_q1_w2">Groin-groin</string>
+    <string name="quiz_easy_q1_w3">Bêê</string>
+    <string name="quiz_easy_q2">Comment appelle-t-on le petit de la poule ?</string>
+    <string name="quiz_easy_q2_a">Poussin</string>
+    <string name="quiz_easy_q2_w1">Veau</string>
+    <string name="quiz_easy_q2_w2">Chevreau</string>
+    <string name="quiz_easy_q2_w3">Porcelet</string>
+    <string name="quiz_easy_q3">Que pond la poule ?</string>
+    <string name="quiz_easy_q3_a">Des œufs</string>
+    <string name="quiz_easy_q3_w1">Du lait</string>
+    <string name="quiz_easy_q3_w2">De la laine</string>
+    <string name="quiz_easy_q3_w3">Du miel</string>
+    <string name="quiz_easy_q4">Comment appelle-t-on le mâle adulte de la poule ?</string>
+    <string name="quiz_easy_q4_a">Coq</string>
+    <string name="quiz_easy_q4_w1">Taureau</string>
+    <string name="quiz_easy_q4_w2">Bélier</string>
+    <string name="quiz_easy_q4_w3">Canard</string>
+    <string name="quiz_easy_q5">Quel animal de la ferme nous donne de la laine ?</string>
+    <string name="quiz_easy_q5_a">Le mouton</string>
+    <string name="quiz_easy_q5_w1">La vache</string>
+    <string name="quiz_easy_q5_w2">La poule</string>
+    <string name="quiz_easy_q5_w3">Le cheval</string>
+    <string name="quiz_easy_q6">Où vivent les poules à la ferme ?</string>
+    <string name="quiz_easy_q6_a">Dans un poulailler</string>
+    <string name="quiz_easy_q6_w1">Dans une écurie</string>
+    <string name="quiz_easy_q6_w2">Dans une porcherie</string>
+    <string name="quiz_easy_q6_w3">Dans une niche</string>
+    <string name="quiz_easy_q7">Que nous donnent les vaches laitières ?</string>
+    <string name="quiz_easy_q7_a">Du lait</string>
+    <string name="quiz_easy_q7_w1">Des œufs</string>
+    <string name="quiz_easy_q7_w2">Du miel</string>
+    <string name="quiz_easy_q7_w3">De la laine</string>
+    <string name="quiz_easy_q8">Comment appelle-t-on le petit de la vache ?</string>
+    <string name="quiz_easy_q8_a">Un veau</string>
+    <string name="quiz_easy_q8_w1">Un poulain</string>
+    <string name="quiz_easy_q8_w2">Un agneau</string>
+    <string name="quiz_easy_q8_w3">Un chevreau</string>
+    <string name="quiz_easy_q9">Que fait le coq, c\'est bien connu, au lever du soleil ?</string>
+    <string name="quiz_easy_q9_a">Il chante</string>
+    <string name="quiz_easy_q9_w1">Il cancane</string>
+    <string name="quiz_easy_q9_w2">Il aboie</string>
+    <string name="quiz_easy_q9_w3">Il hennit</string>
+    <string name="quiz_easy_q10">Quel animal de la ferme fait « groin » ?</string>
+    <string name="quiz_easy_q10_a">Le cochon</string>
+    <string name="quiz_easy_q10_w1">La chèvre</string>
+    <string name="quiz_easy_q10_w2">Le canard</string>
+    <string name="quiz_easy_q10_w3">L\'âne</string>
+
+    <!-- Quiz: medium -->
+    <string name="quiz_medium_q1">Combien de jours environ faut-il pour qu\'un œuf de poule éclose ?</string>
+    <string name="quiz_medium_q1_a">21 jours</string>
+    <string name="quiz_medium_q1_w1">7 jours</string>
+    <string name="quiz_medium_q1_w2">45 jours</string>
+    <string name="quiz_medium_q1_w3">90 jours</string>
+    <string name="quiz_medium_q2">Comment s\'appelle l\'excroissance rouge sur le dessus de la tête de la poule ?</string>
+    <string name="quiz_medium_q2_a">La crête</string>
+    <string name="quiz_medium_q2_w1">Le barbillon</string>
+    <string name="quiz_medium_q2_w2">Le bec</string>
+    <string name="quiz_medium_q2_w3">L\'ergot</string>
+    <string name="quiz_medium_q3">Comment appelle-t-on un groupe de poules ?</string>
+    <string name="quiz_medium_q3_a">Une volée</string>
+    <string name="quiz_medium_q3_w1">Un troupeau</string>
+    <string name="quiz_medium_q3_w2">Une meute</string>
+    <string name="quiz_medium_q3_w3">Un banc</string>
+    <string name="quiz_medium_q4">Une jeune poule de moins d\'un an est une…</string>
+    <string name="quiz_medium_q4_a">Poulette</string>
+    <string name="quiz_medium_q4_w1">Coquelet</string>
+    <string name="quiz_medium_q4_w2">Oison</string>
+    <string name="quiz_medium_q4_w3">Caneton</string>
+    <string name="quiz_medium_q5">Qu\'avalent les poules pour aider leur gésier à broyer la nourriture ?</string>
+    <string name="quiz_medium_q5_a">De petits cailloux (grit)</string>
+    <string name="quiz_medium_q5_w1">Des plumes</string>
+    <string name="quiz_medium_q5_w2">Seulement des coquillages</string>
+    <string name="quiz_medium_q5_w3">Rien du tout</string>
+    <string name="quiz_medium_q6">Comment appelle-t-on le petit du cheval ?</string>
+    <string name="quiz_medium_q6_a">Un poulain</string>
+    <string name="quiz_medium_q6_w1">Un veau</string>
+    <string name="quiz_medium_q6_w2">Un chevreau</string>
+    <string name="quiz_medium_q6_w3">Un cygneau</string>
+    <string name="quiz_medium_q7">Quelle céréale est un aliment classique des poules ?</string>
+    <string name="quiz_medium_q7_a">Le maïs</string>
+    <string name="quiz_medium_q7_w1">Le cacao</string>
+    <string name="quiz_medium_q7_w2">Le café</string>
+    <string name="quiz_medium_q7_w3">Le coton</string>
+    <string name="quiz_medium_q8">Où les poules aiment-elles dormir la nuit ?</string>
+    <string name="quiz_medium_q8_a">Sur un perchoir</string>
+    <string name="quiz_medium_q8_w1">Dans un terrier</string>
+    <string name="quiz_medium_q8_w2">Dans l\'étang</string>
+    <string name="quiz_medium_q8_w3">Dans une ruche</string>
+    <string name="quiz_medium_q9">L\'herbe séchée stockée pour nourrir les animaux s\'appelle…</string>
+    <string name="quiz_medium_q9_a">Le foin</string>
+    <string name="quiz_medium_q9_w1">La mousse</string>
+    <string name="quiz_medium_q9_w2">La tourbe</string>
+    <string name="quiz_medium_q9_w3">L\'écorce</string>
+    <string name="quiz_medium_q10">Comment appelle-t-on le mâle de la cane ?</string>
+    <string name="quiz_medium_q10_a">Le canard</string>
+    <string name="quiz_medium_q10_w1">Le jars</string>
+    <string name="quiz_medium_q10_w2">Le cygne mâle</string>
+    <string name="quiz_medium_q10_w3">Le dindon</string>
+
+    <!-- Quiz: hard -->
+    <string name="quiz_hard_q1">De quel oiseau sauvage descendent principalement les poules domestiques ?</string>
+    <string name="quiz_hard_q1_a">Le coq doré (coq bankiva)</string>
+    <string name="quiz_hard_q1_w1">L\'autruche</string>
+    <string name="quiz_hard_q1_w2">Le paon</string>
+    <string name="quiz_hard_q1_w3">Le faisan</string>
+    <string name="quiz_hard_q2">Qu\'utilise le poussin pour casser sa coquille de l\'intérieur ?</string>
+    <string name="quiz_hard_q2_a">Un diamant (dent de l\'œuf)</string>
+    <string name="quiz_hard_q2_w1">Ses ergots</string>
+    <string name="quiz_hard_q2_w2">Ses barbillons</string>
+    <string name="quiz_hard_q2_w3">Sa crête</string>
+    <string name="quiz_hard_q3">Les replis de chair qui pendent sous le bec de la poule sont…</string>
+    <string name="quiz_hard_q3_a">Les barbillons</string>
+    <string name="quiz_hard_q3_w1">Les camails</string>
+    <string name="quiz_hard_q3_w2">Les ergots</string>
+    <string name="quiz_hard_q3_w3">Les crêtes</string>
+    <string name="quiz_hard_q4">La couleur de la coquille (blanche, brune, bleue) dépend surtout de…</string>
+    <string name="quiz_hard_q4_a">La race de la poule</string>
+    <string name="quiz_hard_q4_w1">Son alimentation</string>
+    <string name="quiz_hard_q4_w2">La couleur du poulailler</string>
+    <string name="quiz_hard_q4_w3">La météo</string>
+    <string name="quiz_hard_q5">Une poule qui veut couver ses œufs jusqu\'à l\'éclosion est dite…</string>
+    <string name="quiz_hard_q5_a">Couveuse</string>
+    <string name="quiz_hard_q5_w1">En mue</string>
+    <string name="quiz_hard_q5_w2">Perchée</string>
+    <string name="quiz_hard_q5_w3">Lissant ses plumes</string>
+    <string name="quiz_hard_q6">Chaque année, les poules perdent et refont leurs plumes. On appelle cela…</string>
+    <string name="quiz_hard_q6_a">La mue</string>
+    <string name="quiz_hard_q6_w1">La couvaison</string>
+    <string name="quiz_hard_q6_w2">La nidification</string>
+    <string name="quiz_hard_q6_w3">Le bain de poussière</string>
+    <string name="quiz_hard_q7">Quelle partie de l\'œuf nourrit le poussin en croissance ?</string>
+    <string name="quiz_hard_q7_a">Le jaune</string>
+    <string name="quiz_hard_q7_w1">La chambre à air</string>
+    <string name="quiz_hard_q7_w2">La coquille</string>
+    <string name="quiz_hard_q7_w3">La chalaze</string>
+    <string name="quiz_hard_q8">Quelle race est célèbre pour ses œufs bleu-vert ?</string>
+    <string name="quiz_hard_q8_a">Araucana</string>
+    <string name="quiz_hard_q8_w1">Leghorn</string>
+    <string name="quiz_hard_q8_w2">Rhode Island</string>
+    <string name="quiz_hard_q8_w3">Orpington</string>
+    <string name="quiz_hard_q9">Comment les poules nettoient-elles leurs plumes et luttent-elles contre les acariens ?</string>
+    <string name="quiz_hard_q9_a">Par des bains de poussière</string>
+    <string name="quiz_hard_q9_w1">En nageant</string>
+    <string name="quiz_hard_q9_w2">En se roulant dans la neige</string>
+    <string name="quiz_hard_q9_w3">En restant sous la pluie</string>
+    <string name="quiz_hard_q10">Les races de poules de petite taille sont appelées…</string>
+    <string name="quiz_hard_q10_a">Naines</string>
+    <string name="quiz_hard_q10_w1">Poulettes</string>
+    <string name="quiz_hard_q10_w2">Poulets de chair</string>
+    <string name="quiz_hard_q10_w3">Chapons</string>
+</resources>

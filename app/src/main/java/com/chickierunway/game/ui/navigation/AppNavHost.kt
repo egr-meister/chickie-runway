@@ -5,6 +5,8 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.res.stringResource
+import com.chickierunway.game.R
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
@@ -113,7 +115,7 @@ fun AppNavHost(app: ChickieApp) {
             val category = QuizBank.category(entry.routeOrNull<QuizRoute>()?.categoryId)
             if (category == null || category.questions.isEmpty()) {
                 ErrorFallback(
-                    message = "This quiz category could not be found. Please pick another one.",
+                    message = stringResource(R.string.error_quiz_missing),
                     onBack = { nav.popFrom(entry) }
                 )
             } else {
@@ -137,7 +139,7 @@ fun AppNavHost(app: ChickieApp) {
             val category = QuizBank.category(route?.categoryId)
             if (route == null || category == null || route.total <= 0 || route.score !in 0..route.total) {
                 ErrorFallback(
-                    message = "We couldn't load this result. Your saved best scores are safe.",
+                    message = stringResource(R.string.error_quiz_result),
                     onBack = { nav.popFrom(entry) }
                 )
             } else {
@@ -172,7 +174,7 @@ fun AppNavHost(app: ChickieApp) {
             val config = GameLogic.levelConfig(entry.routeOrNull<PairsRoute>()?.level ?: 0)
             if (config == null) {
                 ErrorFallback(
-                    message = "This level doesn't exist. Pick a level from the list.",
+                    message = stringResource(R.string.error_level_missing),
                     onBack = { nav.popFrom(entry) }
                 )
             } else {
@@ -196,7 +198,7 @@ fun AppNavHost(app: ChickieApp) {
             val config = GameLogic.levelConfig(route?.level ?: 0)
             if (route == null || config == null || route.matched !in 0..config.pairs) {
                 ErrorFallback(
-                    message = "We couldn't load this result. Your level progress is safe.",
+                    message = stringResource(R.string.error_pairs_result),
                     onBack = { nav.popFrom(entry) }
                 )
             } else {

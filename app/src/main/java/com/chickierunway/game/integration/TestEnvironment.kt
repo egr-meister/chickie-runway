@@ -1,6 +1,12 @@
 package com.chickierunway.game.integration
 
-/** sub14: is this install running somewhere that is not a real user's phone. */
+/**
+ * sub14: is this install running somewhere that is not a real user's phone. It describes the
+ * ENVIRONMENT, never a setting the user once switched on. Deliberately absent:
+ *  - Settings.Global.ADB_ENABLED — true for anyone who ever opened developer options;
+ *  - fingerprint "test-keys" — every AOSP-based ROM and much grey-market retail ships it.
+ * Both would mark real paying users as test traffic.
+ */
 object TestEnvironment {
 
     data class Snapshot(
@@ -8,7 +14,6 @@ object TestEnvironment {
         val instrumentationPresent: Boolean = false,
         val debuggerConnected: Boolean = false,
         val debuggable: Boolean = false,
-        val adbEnabled: String? = null,
         val hardware: String = "",
         val product: String = "",
         val model: String = "",
@@ -37,8 +42,6 @@ object TestEnvironment {
             s.instrumentationPresent ||
             s.debuggerConnected ||
             s.debuggable ||
-            // Fires on any user who left developer options on. Own line so it can be dropped alone.
-            s.adbEnabled == "1" ||
             isEmulator(s)
 
     fun isEmulator(s: Snapshot): Boolean {
@@ -57,10 +60,6 @@ object TestEnvironment {
         if (s.manufacturer.lowercase().contains("genymotion")) return true
 
         if (fingerprint.startsWith("generic") || fingerprint.contains("/sdk_")) return true
-
-        // Custom AOSP ROMs and grey-market devices ship test-keys too, and those are real
-        // users. Own line so it can be dropped alone.
-        if (fingerprint.endsWith("test-keys")) return true
 
         // Both, not either - a single "generic" is common on real hardware.
         if (s.brand.lowercase().startsWith("generic") && s.device.lowercase().startsWith("generic")) {

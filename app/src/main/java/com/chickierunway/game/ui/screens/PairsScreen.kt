@@ -31,6 +31,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import com.chickierunway.game.R
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -91,11 +93,11 @@ fun PairsScreen(
     GameBackground(blurred = true) {
         Column(modifier = Modifier.fillMaxSize()) {
             GameTopBar(
-                title = "Level ${state.level}",
+                title = stringResource(R.string.pairs_level_title, state.level),
                 onBack = viewModel::pause,
-                backDescription = "Pause and show options",
+                backDescription = stringResource(R.string.action_pause_options),
                 trailing = {
-                    IconPlateButton(icon = Assets.iconPause, contentDescription = "Pause", onClick = viewModel::pause)
+                    IconPlateButton(icon = Assets.iconPause, contentDescription = stringResource(R.string.action_pause), onClick = viewModel::pause)
                 }
             )
 
@@ -105,15 +107,19 @@ fun PairsScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 InfoChip(
-                    text = "⏱ " + GameLogic.formatSeconds(state.secondsLeft) + if (state.isLowTime) " Hurry!" else "",
+                    text = "⏱ " + GameLogic.formatSeconds(state.secondsLeft) +
+                        if (state.isLowTime) " " + stringResource(R.string.pairs_hurry) else "",
                     textColor = if (state.isLowTime) Color.White else SkyBlue,
                     borderColor = if (state.isLowTime) WrongRed else SkyBlue,
                     background = if (state.isLowTime) WrongRed else NightNavy.copy(alpha = 0.82f),
-                    description = "Time left ${state.secondsLeft} seconds" + if (state.isLowTime) ", hurry" else ""
+                    description = stringResource(
+                        if (state.isLowTime) R.string.pairs_time_cd_hurry else R.string.pairs_time_cd,
+                        state.secondsLeft
+                    )
                 )
                 InfoChip(
-                    text = "Pairs ${state.matchedPairs}/${state.totalPairs}",
-                    description = "Matched ${state.matchedPairs} of ${state.totalPairs} pairs"
+                    text = stringResource(R.string.pairs_chip, state.matchedPairs, state.totalPairs),
+                    description = stringResource(R.string.pairs_matched_cd, state.matchedPairs, state.totalPairs)
                 )
             }
 
@@ -152,11 +158,11 @@ fun PairsScreen(
         }
 
         if (state.isPaused && playing) {
-            PanelOverlay(title = "Paused", mascot = Assets.mascotD) {
-                PanelText("Level ${state.level}  ·  ${GameLogic.formatSeconds(state.secondsLeft)} left")
-                PanelText("Pairs ${state.matchedPairs}/${state.totalPairs}")
+            PanelOverlay(title = stringResource(R.string.paused), mascot = Assets.mascotD) {
+                PanelText(stringResource(R.string.pairs_paused_status, state.level, GameLogic.formatSeconds(state.secondsLeft)))
+                PanelText(stringResource(R.string.pairs_chip, state.matchedPairs, state.totalPairs))
                 PanelActions(
-                    primaryLabel = "Continue",
+                    primaryLabel = stringResource(R.string.action_continue),
                     onPrimary = viewModel::resume,
                     onRestart = viewModel::restart,
                     onMenu = onMenu
@@ -180,12 +186,13 @@ private fun MemoryCard(
         label = "flip"
     )
     val shape = RoundedCornerShape(14.dp)
-    val name = Assets.itemName(card.itemIndex)
+    val name = stringResource(Assets.itemName(card.itemIndex))
     val description = when {
-        card.matched -> "Card $position, $name, matched"
-        card.faceUp -> "Card $position, $name"
-        else -> "Card $position, face down"
+        card.matched -> stringResource(R.string.card_matched_cd, position, name)
+        card.faceUp -> stringResource(R.string.card_faceup_cd, position, name)
+        else -> stringResource(R.string.card_facedown_cd, position)
     }
+    val matchedState = stringResource(R.string.card_state_matched)
     Box(
         modifier = modifier
             .graphicsLayer {
@@ -195,7 +202,7 @@ private fun MemoryCard(
             .clip(shape)
             .semantics {
                 contentDescription = description
-                if (card.matched) stateDescription = "Matched"
+                if (card.matched) stateDescription = matchedState
             }
             .clickable(
                 enabled = enabled && !card.faceUp && !card.matched,

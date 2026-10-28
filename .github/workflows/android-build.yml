@@ -13,9 +13,9 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  GRADLE_VERSION: "8.9"
-  BUILD_TOOLS: "36.0.0"
-  PLATFORM: "android-36"
+  GRADLE_VERSION: "9.8.2"
+  BUILD_TOOLS: "37.0.0"
+  PLATFORM: "android-37"
 
 jobs:
   build:
@@ -34,7 +34,7 @@ jobs:
           java-version: "17"
 
       # The ubuntu runner ships an Android SDK; use its sdkmanager directly.
-      - name: Install SDK Platform 36 + Build Tools 36.0.0
+      - name: Install SDK Platform 37 + Build Tools 37.0.0
         run: |
           SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
           SDKM="$SDK/cmdline-tools/latest/bin/sdkmanager"

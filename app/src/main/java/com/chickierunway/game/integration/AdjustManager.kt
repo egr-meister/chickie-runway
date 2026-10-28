@@ -7,6 +7,8 @@ import com.adjust.sdk.AdjustAttribution
 import com.adjust.sdk.AdjustConfig
 import com.adjust.sdk.LogLevel
 import com.chickierunway.game.BuildConfig
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 
 /**
  * Adjust SDK v5. Initialised for every install without exception — there is no attribution
@@ -15,13 +17,24 @@ import com.chickierunway.game.BuildConfig
  */
 object AdjustManager {
 
+    private const val ADID_AWAIT_MS = 3_000L
+
     private lateinit var appContext: Context
+
+    // The adid arrives asynchronously with the first session response. Without a latch the
+    // offer URL of a first install is built before it lands and the single click goes out
+    // with no adid.
+    private val adidReady = CountDownLatch(1)
 
     fun init(app: Application) {
         appContext = app.applicationContext
 
         val token = BuildConfig.ADJUST_APP_TOKEN
-        if (token.isBlank()) return   // build without a tracker: let White work
+        if (token.isBlank()) {
+            // Build without a tracker: let White work, and do not stall URL building.
+            adidReady.countDown()
+            return
+        }
 
         val environment =
             if (BuildConfig.DEBUG) AdjustConfig.ENVIRONMENT_SANDBOX
@@ -37,8 +50,25 @@ object AdjustManager {
 
         Adjust.initSdk(config)
 
-        // adid is not ready synchronously; the callback delivers it.
-        Adjust.getAdid { adid -> IntegrationStorage.adid = adid }
+        // adid is not ready synchronously; the callback delivers it. A stored one is the answer
+        // at once, so later launches never wait.
+        if (!IntegrationStorage.adid.isNullOrBlank()) adidReady.countDown()
+        Adjust.getAdid { adid ->
+            IntegrationStorage.adid = adid
+            adidReady.countDown()
+        }
+    }
+
+    /**
+     * Waits a bounded time for the adid, then returns whatever is stored (empty if it never
+     * arrived). Background threads only — it blocks.
+     */
+    fun awaitAdid(): String {
+        if (!::appContext.isInitialized || BuildConfig.ADJUST_APP_TOKEN.isBlank()) {
+            return IntegrationStorage.adid.orEmpty()
+        }
+        runCatching { adidReady.await(ADID_AWAIT_MS, TimeUnit.MILLISECONDS) }
+        return IntegrationStorage.adid.orEmpty()
     }
 
     /**

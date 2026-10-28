@@ -6,6 +6,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.chickierunway.game.R
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -34,32 +36,32 @@ fun QuizResultScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val best = maxOf(state.quizBest[category.id] ?: 0, score)
     val (verdict, mascot) = when {
-        score == total -> "Perfect run — a true farm champion!" to Assets.mascotB
-        score * 10 >= total * 7 -> "Great run! The coop is proud." to Assets.mascotA
-        score * 2 >= total -> "Nice try — keep running!" to Assets.mascotD
-        else -> "Bumpy road. Have another go!" to Assets.mascotC
+        score == total -> R.string.quiz_result_perfect to Assets.mascotB
+        score * 10 >= total * 7 -> R.string.quiz_result_great to Assets.mascotA
+        score * 2 >= total -> R.string.quiz_result_nice to Assets.mascotD
+        else -> R.string.quiz_result_bumpy to Assets.mascotC
     }
 
     GameBackground(blurred = true) {
         CenteredScrollColumn(modifier = Modifier.padding(20.dp)) {
             PanelWithMascot(
                 mascot = mascot,
-                mascotDescription = "Chickie reacting to your score",
-                title = "Quiz Complete",
+                mascotDescription = stringResource(R.string.cd_mascot_reacting),
+                title = stringResource(R.string.quiz_complete),
                 mascotSize = 150.dp
             ) {
-                InfoChip(text = "${category.title}  ${difficultyStars(category.difficulty)}")
+                InfoChip(text = "${stringResource(category.title)}  ${difficultyStars(category.difficulty)}")
                 Text(
-                    text = "Score: $score/$total",
+                    text = stringResource(R.string.result_score, score, total),
                     color = SunYolk,
                     style = MaterialTheme.typography.displaySmall,
                     textAlign = TextAlign.Center
                 )
                 GameProgressBar(progress = if (total == 0) 0f else score.toFloat() / total)
-                PanelText(verdict)
-                PanelText("Best: $best/$total", style = MaterialTheme.typography.titleMedium)
+                PanelText(stringResource(verdict))
+                PanelText(stringResource(R.string.result_best, best, total), style = MaterialTheme.typography.titleMedium)
                 PanelActions(
-                    primaryLabel = "Continue",
+                    primaryLabel = stringResource(R.string.action_continue),
                     onPrimary = onContinue,
                     onRestart = onRestart,
                     onMenu = onMenu

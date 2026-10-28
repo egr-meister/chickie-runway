@@ -1,6 +1,7 @@
 package com.chickierunway.game
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 
 /**
  * The ONLY place that references in-game image resources. Replace files in res/drawable-nodpi
@@ -44,15 +45,17 @@ object Assets {
         R.drawable.item_17, R.drawable.item_18
     )
 
-    /** Text alternatives for the item icons (accessibility). Same order as [items]. */
-    val itemNames: List<String> = listOf(
-        "Checkered flag", "Walk signal", "Turn sign", "Road barrier", "Traffic cone", "Yellow car",
-        "Fire hydrant", "Traffic light", "Blue van", "Red scooter", "Tyre", "Fuel pump",
-        "Hard hat", "Crosswalk", "Road bollard", "Stop sign", "Speed bump", "Street lamp"
+    /** Text alternatives for the item icons (accessibility), as string resources. Same order as [items]. */
+    val itemNames: List<Int> = listOf(
+        R.string.item_01, R.string.item_02, R.string.item_03, R.string.item_04, R.string.item_05,
+        R.string.item_06, R.string.item_07, R.string.item_08, R.string.item_09, R.string.item_10,
+        R.string.item_11, R.string.item_12, R.string.item_13, R.string.item_14, R.string.item_15,
+        R.string.item_16, R.string.item_17, R.string.item_18
     )
 
     @DrawableRes
     fun item(index: Int): Int = items.getOrElse(index) { items.first() }
 
-    fun itemName(index: Int): String = itemNames.getOrElse(index) { "Picture" }
+    @StringRes
+    fun itemName(index: Int): Int = itemNames.getOrElse(index) { R.string.item_unknown }
 }

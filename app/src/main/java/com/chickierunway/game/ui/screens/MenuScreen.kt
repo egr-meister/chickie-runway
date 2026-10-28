@@ -17,6 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import com.chickierunway.game.R
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.chickierunway.game.Assets
@@ -51,12 +53,12 @@ fun MenuScreen(
                 modifier = Modifier.fillMaxWidth().padding(12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                IconPlateButton(icon = Assets.iconBack, contentDescription = "Back to start", onClick = onBack)
+                IconPlateButton(icon = Assets.iconBack, contentDescription = stringResource(R.string.cd_back_to_start), onClick = onBack)
             }
 
             Image(
                 painter = painterResource(Assets.logo),
-                contentDescription = "Chickie Runway",
+                contentDescription = stringResource(R.string.app_name),
                 contentScale = ContentScale.Fit,
                 modifier = Modifier.fillMaxWidth(0.5f).widthIn(max = 260.dp).heightIn(max = 170.dp)
             )
@@ -64,14 +66,14 @@ fun MenuScreen(
             Spacer(Modifier.height(10.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 InfoChip(
-                    text = "Quiz $quizTotal/$quizMax",
-                    description = "Quiz best total $quizTotal of $quizMax"
+                    text = stringResource(R.string.menu_quiz_chip, quizTotal, quizMax),
+                    description = stringResource(R.string.menu_quiz_chip_cd, quizTotal, quizMax)
                 )
                 InfoChip(
-                    text = "Pairs ${state.completedLevels}/${GameLogic.LEVEL_COUNT}",
+                    text = stringResource(R.string.pairs_chip, state.completedLevels, GameLogic.LEVEL_COUNT),
                     textColor = SkyBlue,
                     borderColor = SkyBlue,
-                    description = "Matching pairs levels cleared ${state.completedLevels} of ${GameLogic.LEVEL_COUNT}"
+                    description = stringResource(R.string.menu_pairs_chip_cd, state.completedLevels, GameLogic.LEVEL_COUNT)
                 )
             }
             Spacer(Modifier.height(18.dp))
@@ -81,16 +83,16 @@ fun MenuScreen(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                MenuPlateButton(text = "Quiz", onClick = onQuiz, leadingIcon = Assets.item(12), widthFraction = 0.74f)
+                MenuPlateButton(text = stringResource(R.string.menu_quiz), onClick = onQuiz, leadingIcon = Assets.item(12), widthFraction = 0.74f)
                 MenuPlateButton(
-                    text = "Matching Pairs",
+                    text = stringResource(R.string.pairs_title),
                     onClick = onPairs,
                     leadingIcon = Assets.item(4),
                     widthFraction = 0.74f,
                     textStyle = MaterialTheme.typography.titleLarge
                 )
-                MenuPlateButton(text = "Results", onClick = onResults, leadingIcon = Assets.item(0), widthFraction = 0.74f)
-                MenuPlateButton(text = "Settings", onClick = onSettings, leadingIcon = Assets.item(10), widthFraction = 0.74f)
+                MenuPlateButton(text = stringResource(R.string.results_title), onClick = onResults, leadingIcon = Assets.item(0), widthFraction = 0.74f)
+                MenuPlateButton(text = stringResource(R.string.settings_title), onClick = onSettings, leadingIcon = Assets.item(10), widthFraction = 0.74f)
             }
 
             MascotParade(

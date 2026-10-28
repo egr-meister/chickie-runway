@@ -36,6 +36,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import com.chickierunway.game.R
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
@@ -234,9 +236,9 @@ private fun OfferErrorScreen(onRetry: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        Text("Couldn't load the page.")
+        Text(stringResource(R.string.page_load_error))
         Button(onClick = onRetry, modifier = Modifier.padding(top = 16.dp)) {
-            Text("Retry")
+            Text(stringResource(R.string.action_retry))
         }
     }
 }

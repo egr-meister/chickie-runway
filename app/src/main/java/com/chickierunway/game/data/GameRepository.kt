@@ -49,11 +49,19 @@ class GameRepository(private val dataStore: DataStore<Preferences>) {
         data.copy(settings = data.settings.copy(soundEnabled = enabled))
     }
 
+    suspend fun setThemeMode(key: String): Boolean = update { data ->
+        data.copy(settings = data.settings.copy(themeMode = key))
+    }
+
+    suspend fun setAccent(key: String): Boolean = update { data ->
+        data.copy(settings = data.settings.copy(accent = key))
+    }
+
     suspend fun toggleSound(): Boolean = update { data ->
         data.copy(settings = data.settings.copy(soundEnabled = !data.settings.soundEnabled))
     }
 
-    /** Clears ALL progress (quiz bests + pairs bests). The sound preference is kept. */
+    /** Clears ALL progress (quiz bests + pairs bests). Settings (sound, theme, accent) are kept. */
     suspend fun resetAll(): Boolean = update { data -> GameData(settings = data.settings) }
 
     private suspend fun update(transform: (GameData) -> GameData): Boolean = try {

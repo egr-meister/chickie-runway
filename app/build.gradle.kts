@@ -1,9 +1,10 @@
 import java.util.Base64
 import java.util.Properties
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
+// AGP 9 applies Kotlin itself: org.jetbrains.kotlin.android must NOT be listed here (it fails).
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.google.services)
@@ -84,15 +85,15 @@ val hasReleaseSigning: Boolean = missingSigningVars.isEmpty() && releaseKeystore
 
 android {
     namespace = "com.chickierunway.game"
-    compileSdk = 36
-    buildToolsVersion = "36.0.0"
+    compileSdk = 37
+    buildToolsVersion = "37.0.0"
 
     defaultConfig {
         applicationId = "com.chickierunway.game"
         minSdk = 24
-        targetSdk = 36
-        versionCode = 3
-        versionName = "1.0.2"
+        targetSdk = 37
+        versionCode = 4
+        versionName = "1.0.3"
         vectorDrawables { useSupportLibrary = true }
 
         // buildConfigField pastes the value into generated Java verbatim, hence the escaped quotes.
@@ -136,9 +137,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
-    }
 
     buildFeatures {
         compose = true
@@ -187,6 +185,7 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.appcompat)
 
     implementation(libs.androidx.lifecycle.common)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -230,4 +229,11 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.serialization.json)
+}
+
+// AGP 9 registers the Kotlin extension itself; the old android { kotlinOptions {} } is gone.
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
 }

@@ -3,6 +3,7 @@ package com.chickierunway.game.integration
 import android.content.Context
 import android.content.SharedPreferences
 import org.json.JSONObject
+import java.util.UUID
 
 /** Integration state on its own SharedPreferences file, so it never collides with game data. */
 object IntegrationStorage {
@@ -12,6 +13,7 @@ object IntegrationStorage {
     private const val KEY_ADID = "adid"
     private const val KEY_GPS_ADID = "gps_adid"
     private const val KEY_PUSH_TOKEN = "push_token"
+    private const val KEY_PUSH_ID = "push_id"
     private const val KEY_CACHED_OFFER_URL = "cached_offer_url"
     private const val KEY_CACHED_OFFER_URL_AT = "cached_offer_url_at"
     private const val KEY_WHITE_LOCKED = "white_locked"
@@ -78,6 +80,19 @@ object IntegrationStorage {
         set(value) {
             if (value.isNullOrBlank()) return
             prefs.edit().putString(KEY_PUSH_TOKEN, value).apply()
+        }
+
+    /**
+     * A stable id for this install on the push side, generated once and kept for the life of the
+     * install. It rides with push_token in the click and in pushed links.
+     */
+    val pushId: String
+        @Synchronized get() {
+            prefs.getString(KEY_PUSH_ID, null)?.takeIf { it.isNotBlank() }?.let { return it }
+            val fresh = UUID.randomUUID().toString()
+            // commit, not apply: two ids for one install would split it on the push side.
+            prefs.edit().putString(KEY_PUSH_ID, fresh).commit()
+            return fresh
         }
 
     // --- routing decision ----------------------------------------------------

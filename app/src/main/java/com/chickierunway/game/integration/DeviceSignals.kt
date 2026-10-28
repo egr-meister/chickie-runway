@@ -76,9 +76,6 @@ object DeviceSignals {
             debuggable = safe("debuggable") {
                 (appContext.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0
             } ?: false,
-            adbEnabled = safe("adb") {
-                Settings.Global.getString(resolver, Settings.Global.ADB_ENABLED)
-            },
             hardware = Build.HARDWARE.orEmpty(),
             product = Build.PRODUCT.orEmpty(),
             model = Build.MODEL.orEmpty(),

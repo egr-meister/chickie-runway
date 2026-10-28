@@ -1,5 +1,6 @@
 package com.chickierunway.game.ui.viewmodel
 
+import androidx.annotation.StringRes
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -22,7 +23,7 @@ import kotlinx.coroutines.launch
 @Immutable
 data class QuizUiState(
     val categoryId: String,
-    val categoryTitle: String,
+    @StringRes val categoryTitle: Int,
     val questionIndex: Int,
     val total: Int,
     val question: QuizQuestion,
@@ -59,7 +60,7 @@ class QuizViewModel(
         categoryTitle = category.title,
         questionIndex = 0,
         total = questions.size,
-        question = questions.firstOrNull() ?: QuizQuestion("", emptyList(), 0),
+        question = questions.firstOrNull() ?: QuizQuestion(0, emptyList(), 0),
         isFinished = questions.isEmpty()
     )
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Full-backup rules for API < 31 (dataExtractionRules covers 31+). Backup is off anyway
+    (allowBackup=false); this is the second line of defence if it is ever switched back on.
+    Nothing leaves the device: progress, settings and the app's internal state are all local.
+-->
+<full-backup-content>
+    <exclude domain="root" path="." />
+    <exclude domain="file" path="." />
+    <exclude domain="database" path="." />
+    <exclude domain="sharedpref" path="." />
+    <exclude domain="external" path="." />
+</full-backup-content>

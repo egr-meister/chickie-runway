@@ -1,4 +1,343 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    English is the fallback for every language without its own folder, so it lives in `values`.
+    Every key here must exist in all six translations (values-ru/fr/es/pt/it/de):
+    run scripts/check_locales.sh after adding one.
+-->
 <resources>
-    <string name="app_name">Chickie Runway</string>
+    <string name="app_name" translatable="false">Chickie Runway</string>
+    <string name="score_fraction" translatable="false">%1$d/%2$d</string>
+    <string name="bullet_line" translatable="false">•  %1$s</string>
+
+    <!-- Common -->
+    <string name="action_back">Back</string>
+    <string name="action_continue">Continue</string>
+    <string name="action_restart">Restart</string>
+    <string name="action_menu">Menu</string>
+    <string name="action_pause">Pause</string>
+    <string name="action_pause_options">Pause and show options</string>
+    <string name="action_got_it">Got it</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_reset">Reset</string>
+    <string name="action_retry">Retry</string>
+    <string name="paused">Paused</string>
+    <string name="error_title">Oops, wrong turn!</string>
+    <string name="cd_mascot_surprised">Chickie looking surprised</string>
+    <string name="cd_mascot_reacting">Chickie reacting to your score</string>
+    <string name="cd_mascot_cheering">Chickie cheering</string>
+    <string name="cd_mascot_clock">Chickie surprised by the clock</string>
+    <string name="page_load_error">Couldn\'t load the page.</string>
+
+    <!-- Home -->
+    <string name="main_start">Start</string>
+    <string name="main_tagline">Ready, set, run!</string>
+    <string name="cd_main_runner">Chickie running down the road</string>
+
+    <!-- Menu -->
+    <string name="cd_back_to_start">Back to start</string>
+    <string name="menu_quiz_chip">Quiz %1$d/%2$d</string>
+    <string name="menu_quiz_chip_cd">Quiz best total %1$d of %2$d</string>
+    <string name="pairs_chip">Pairs %1$d/%2$d</string>
+    <string name="menu_pairs_chip_cd">Matching pairs levels cleared %1$d of %2$d</string>
+    <string name="menu_quiz">Quiz</string>
+    <string name="pairs_title">Matching Pairs</string>
+    <string name="results_title">Results</string>
+    <string name="settings_title">Settings</string>
+
+    <!-- Quiz -->
+    <string name="quiz_title">Farm Quiz</string>
+    <string name="quiz_choose_difficulty">Choose difficulty</string>
+    <string name="quiz_category_cd">%1$s, difficulty %2$d of 3. %3$s. Best score %4$d of %5$d.</string>
+    <string name="quiz_play">Play %1$s</string>
+    <string name="quiz_screen_title">%1$s Quiz</string>
+    <string name="quiz_question_cd">Question %1$d of %2$d</string>
+    <string name="quiz_answer_correct_cd">Correct answer</string>
+    <string name="quiz_answer_wrong_cd">Wrong answer</string>
+    <string name="quiz_feedback_right">Correct! Cluck-tastic!</string>
+    <string name="quiz_feedback_wrong">Oops — the green answer is right.</string>
+    <string name="quiz_paused_status">Question %1$d of %2$d  ·  Score %3$d</string>
+    <string name="quiz_result_perfect">Perfect run — a true farm champion!</string>
+    <string name="quiz_result_great">Great run! The coop is proud.</string>
+    <string name="quiz_result_nice">Nice try — keep running!</string>
+    <string name="quiz_result_bumpy">Bumpy road. Have another go!</string>
+    <string name="quiz_complete">Quiz Complete</string>
+    <string name="result_score">Score: %1$d/%2$d</string>
+    <string name="result_best">Best: %1$d/%2$d</string>
+
+    <!-- Levels / Matching Pairs -->
+    <string name="levels_cleared">Cleared %1$d/%2$d</string>
+    <string name="levels_cleared_cd">Levels cleared %1$d of %2$d</string>
+    <string name="rules_title">Game Rules</string>
+    <string name="level_locked">Locked</string>
+    <string name="level_cleared">★ Cleared</string>
+    <string name="level_best">Best %1$d/%2$d</string>
+    <plurals name="level_pairs">
+        <item quantity="one">%d pair</item>
+        <item quantity="other">%d pairs</item>
+    </plurals>
+    <string name="level_cd_locked">Level %1$d, locked. Clear level %2$d to unlock.</string>
+    <string name="level_cd_cleared">Level %1$d, cleared. Best %2$d of %3$d pairs.</string>
+    <string name="level_cd_open">Level %1$d, %2$d pairs. Best %3$d.</string>
+    <string name="pairs_level_title">Level %1$d</string>
+    <string name="pairs_hurry">Hurry!</string>
+    <string name="pairs_time_cd">Time left %1$d seconds</string>
+    <string name="pairs_time_cd_hurry">Time left %1$d seconds, hurry</string>
+    <string name="pairs_matched_cd">Matched %1$d of %2$d pairs</string>
+    <string name="pairs_paused_status">Level %1$d  ·  %2$s left</string>
+    <string name="card_matched_cd">Card %1$d, %2$s, matched</string>
+    <string name="card_faceup_cd">Card %1$d, %2$s</string>
+    <string name="card_facedown_cd">Card %1$d, face down</string>
+    <string name="card_state_matched">Matched</string>
+    <string name="pairs_won">Well Done</string>
+    <string name="pairs_lost">Out of Time</string>
+    <string name="pairs_result_pairs">Pairs: %1$d/%2$d</string>
+    <string name="pairs_next_unlocked">Level %1$d is unlocked. Continue to keep running!</string>
+    <string name="pairs_all_cleared">All %1$d levels cleared — you own the road!</string>
+    <string name="pairs_time_up">The clock ran out. Restart to try again.</string>
+
+    <!-- Results summary -->
+    <string name="summary_trip_log">Trip Log</string>
+    <string name="summary_quiz_header">Farm Quiz — best scores</string>
+    <string name="summary_quiz_cd">%1$s quiz: best %2$d of %3$d</string>
+    <string name="summary_cleared">Cleared %1$d / %2$d</string>
+    <string name="summary_level_cleared_cd">Level %1$d: cleared</string>
+    <string name="summary_level_open_cd">Level %1$d: open</string>
+    <string name="summary_level_locked_cd">Level %1$d: locked</string>
+    <string name="summary_legend">✓ = cleared · number = open or locked</string>
+
+    <!-- Rules -->
+    <string name="rules_how_to_play">How to Play</string>
+    <string name="rules_pairs_1">Tap a card to flip it, then tap another.</string>
+    <string name="rules_pairs_2">Same picture? The pair stays open. Different? Both flip back.</string>
+    <string name="rules_pairs_3">Clear every pair before the timer reaches 0:00 to win.</string>
+    <string name="rules_pairs_4">Clearing a level unlocks the next one — %1$d levels, more cards and less time per pair.</string>
+    <string name="rules_pairs_5">Pause any time: the timer stops while paused.</string>
+    <string name="rules_example_cd">Example: %1$s</string>
+    <string name="rules_pair_equals">= ✓ pair</string>
+    <string name="rules_quiz_1">3 difficulty levels — Easy, Medium, Hard — with 10 questions each.</string>
+    <string name="rules_quiz_2">Each question has 4 answers and only one is right.</string>
+    <string name="rules_quiz_3">The correct answer turns green (✓); a wrong pick turns red (✗).</string>
+    <string name="rules_quiz_4">Your best score for each level is saved on this device.</string>
+
+    <!-- Navigation fallbacks -->
+    <string name="error_quiz_missing">This quiz category could not be found. Please pick another one.</string>
+    <string name="error_quiz_result">We couldn\'t load this result. Your saved best scores are safe.</string>
+    <string name="error_level_missing">This level doesn\'t exist. Pick a level from the list.</string>
+    <string name="error_pairs_result">We couldn\'t load this result. Your level progress is safe.</string>
+
+    <!-- Settings -->
+    <string name="settings_panel">Control Panel</string>
+    <string name="settings_sound">Sound effects</string>
+    <string name="state_on">On</string>
+    <string name="state_off">Off</string>
+    <string name="settings_theme">Theme</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="settings_accent">Accent colour</string>
+    <string name="accent_gold">Gold</string>
+    <string name="accent_sky">Sky</string>
+    <string name="accent_meadow">Meadow</string>
+    <string name="accent_berry">Berry</string>
+    <string name="state_selected_cd">%1$s, selected</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_language_choose">Choose language</string>
+    <string name="language_system">System default</string>
+    <string name="language_en" translatable="false">English</string>
+    <string name="language_ru" translatable="false">Русский</string>
+    <string name="language_fr" translatable="false">Français</string>
+    <string name="settings_privacy">Privacy Policy</string>
+    <string name="settings_rate">Rate the Game</string>
+    <string name="settings_reset">Reset Progress</string>
+    <string name="settings_reset_cd">Reset progress. Asks for confirmation.</string>
+    <string name="settings_storage_note">Your scores and settings are kept on this device.</string>
+    <string name="settings_reset_title">Reset all progress?</string>
+    <string name="settings_reset_text">This clears every quiz best score and locks Matching Pairs back to level 1. This cannot be undone.</string>
+    <string name="settings_reset_done">Progress reset</string>
+    <string name="settings_no_app">No app available to open this link</string>
+
+    <!-- Item pictures (accessibility), same order as Assets.items -->
+    <string name="item_01">Checkered flag</string>
+    <string name="item_02">Walk signal</string>
+    <string name="item_03">Turn sign</string>
+    <string name="item_04">Road barrier</string>
+    <string name="item_05">Traffic cone</string>
+    <string name="item_06">Yellow car</string>
+    <string name="item_07">Fire hydrant</string>
+    <string name="item_08">Traffic light</string>
+    <string name="item_09">Blue van</string>
+    <string name="item_10">Red scooter</string>
+    <string name="item_11">Tyre</string>
+    <string name="item_12">Fuel pump</string>
+    <string name="item_13">Hard hat</string>
+    <string name="item_14">Crosswalk</string>
+    <string name="item_15">Road bollard</string>
+    <string name="item_16">Stop sign</string>
+    <string name="item_17">Speed bump</string>
+    <string name="item_18">Street lamp</string>
+    <string name="item_unknown">Picture</string>
+
+    <!-- Quiz levels -->
+    <string name="quiz_level_easy">Easy</string>
+    <string name="quiz_level_medium">Medium</string>
+    <string name="quiz_level_hard">Hard</string>
+    <string name="quiz_tagline_easy">Farmyard basics</string>
+    <string name="quiz_tagline_medium">Coop life &amp; crops</string>
+    <string name="quiz_tagline_hard">For true farm experts</string>
+
+    <!-- Quiz: easy. qN = question, qN_a = correct answer, qN_w1..w3 = wrong answers -->
+    <string name="quiz_easy_q1">What sound does a hen make?</string>
+    <string name="quiz_easy_q1_a">Cluck</string>
+    <string name="quiz_easy_q1_w1">Moo</string>
+    <string name="quiz_easy_q1_w2">Oink</string>
+    <string name="quiz_easy_q1_w3">Baa</string>
+    <string name="quiz_easy_q2">What is a baby chicken called?</string>
+    <string name="quiz_easy_q2_a">Chick</string>
+    <string name="quiz_easy_q2_w1">Calf</string>
+    <string name="quiz_easy_q2_w2">Kid</string>
+    <string name="quiz_easy_q2_w3">Piglet</string>
+    <string name="quiz_easy_q3">What does a hen lay?</string>
+    <string name="quiz_easy_q3_a">Eggs</string>
+    <string name="quiz_easy_q3_w1">Milk</string>
+    <string name="quiz_easy_q3_w2">Wool</string>
+    <string name="quiz_easy_q3_w3">Honey</string>
+    <string name="quiz_easy_q4">What is a grown-up male chicken called?</string>
+    <string name="quiz_easy_q4_a">Rooster</string>
+    <string name="quiz_easy_q4_w1">Bull</string>
+    <string name="quiz_easy_q4_w2">Ram</string>
+    <string name="quiz_easy_q4_w3">Drake</string>
+    <string name="quiz_easy_q5">Which farm animal gives us wool?</string>
+    <string name="quiz_easy_q5_a">Sheep</string>
+    <string name="quiz_easy_q5_w1">Cow</string>
+    <string name="quiz_easy_q5_w2">Hen</string>
+    <string name="quiz_easy_q5_w3">Horse</string>
+    <string name="quiz_easy_q6">Where do chickens live on a farm?</string>
+    <string name="quiz_easy_q6_a">In a coop</string>
+    <string name="quiz_easy_q6_w1">In a stable</string>
+    <string name="quiz_easy_q6_w2">In a sty</string>
+    <string name="quiz_easy_q6_w3">In a kennel</string>
+    <string name="quiz_easy_q7">What do dairy cows give us?</string>
+    <string name="quiz_easy_q7_a">Milk</string>
+    <string name="quiz_easy_q7_w1">Eggs</string>
+    <string name="quiz_easy_q7_w2">Honey</string>
+    <string name="quiz_easy_q7_w3">Wool</string>
+    <string name="quiz_easy_q8">What is a baby cow called?</string>
+    <string name="quiz_easy_q8_a">A calf</string>
+    <string name="quiz_easy_q8_w1">A foal</string>
+    <string name="quiz_easy_q8_w2">A lamb</string>
+    <string name="quiz_easy_q8_w3">A kid</string>
+    <string name="quiz_easy_q9">What does a rooster famously do at sunrise?</string>
+    <string name="quiz_easy_q9_a">Crows</string>
+    <string name="quiz_easy_q9_w1">Quacks</string>
+    <string name="quiz_easy_q9_w2">Barks</string>
+    <string name="quiz_easy_q9_w3">Neighs</string>
+    <string name="quiz_easy_q10">Which farm animal says \"oink\"?</string>
+    <string name="quiz_easy_q10_a">Pig</string>
+    <string name="quiz_easy_q10_w1">Goat</string>
+    <string name="quiz_easy_q10_w2">Duck</string>
+    <string name="quiz_easy_q10_w3">Donkey</string>
+
+    <!-- Quiz: medium -->
+    <string name="quiz_medium_q1">About how many days does a chicken egg take to hatch?</string>
+    <string name="quiz_medium_q1_a">21 days</string>
+    <string name="quiz_medium_q1_w1">7 days</string>
+    <string name="quiz_medium_q1_w2">45 days</string>
+    <string name="quiz_medium_q1_w3">90 days</string>
+    <string name="quiz_medium_q2">What is the red crest on top of a chicken\'s head called?</string>
+    <string name="quiz_medium_q2_a">Comb</string>
+    <string name="quiz_medium_q2_w1">Wattle</string>
+    <string name="quiz_medium_q2_w2">Beak</string>
+    <string name="quiz_medium_q2_w3">Spur</string>
+    <string name="quiz_medium_q3">What do you call a group of chickens?</string>
+    <string name="quiz_medium_q3_a">A flock</string>
+    <string name="quiz_medium_q3_w1">A herd</string>
+    <string name="quiz_medium_q3_w2">A pack</string>
+    <string name="quiz_medium_q3_w3">A school</string>
+    <string name="quiz_medium_q4">A young female chicken under one year old is a…</string>
+    <string name="quiz_medium_q4_a">Pullet</string>
+    <string name="quiz_medium_q4_w1">Cockerel</string>
+    <string name="quiz_medium_q4_w2">Gosling</string>
+    <string name="quiz_medium_q4_w3">Duckling</string>
+    <string name="quiz_medium_q5">What do chickens swallow to help their gizzard grind food?</string>
+    <string name="quiz_medium_q5_a">Small stones (grit)</string>
+    <string name="quiz_medium_q5_w1">Feathers</string>
+    <string name="quiz_medium_q5_w2">Seashells only</string>
+    <string name="quiz_medium_q5_w3">Nothing at all</string>
+    <string name="quiz_medium_q6">What is a baby horse called?</string>
+    <string name="quiz_medium_q6_a">A foal</string>
+    <string name="quiz_medium_q6_w1">A calf</string>
+    <string name="quiz_medium_q6_w2">A kid</string>
+    <string name="quiz_medium_q6_w3">A cygnet</string>
+    <string name="quiz_medium_q7">Which grain is a classic chicken feed?</string>
+    <string name="quiz_medium_q7_a">Corn</string>
+    <string name="quiz_medium_q7_w1">Cocoa</string>
+    <string name="quiz_medium_q7_w2">Coffee</string>
+    <string name="quiz_medium_q7_w3">Cotton</string>
+    <string name="quiz_medium_q8">Where do chickens like to sleep at night?</string>
+    <string name="quiz_medium_q8_a">On a roost</string>
+    <string name="quiz_medium_q8_w1">In a burrow</string>
+    <string name="quiz_medium_q8_w2">In the pond</string>
+    <string name="quiz_medium_q8_w3">In a beehive</string>
+    <string name="quiz_medium_q9">Dried grass stored to feed farm animals is called…</string>
+    <string name="quiz_medium_q9_a">Hay</string>
+    <string name="quiz_medium_q9_w1">Moss</string>
+    <string name="quiz_medium_q9_w2">Peat</string>
+    <string name="quiz_medium_q9_w3">Bark</string>
+    <string name="quiz_medium_q10">What is a male duck called?</string>
+    <string name="quiz_medium_q10_a">A drake</string>
+    <string name="quiz_medium_q10_w1">A gander</string>
+    <string name="quiz_medium_q10_w2">A cob</string>
+    <string name="quiz_medium_q10_w3">A tom</string>
+
+    <!-- Quiz: hard -->
+    <string name="quiz_hard_q1">Domestic chickens descend mainly from which wild bird?</string>
+    <string name="quiz_hard_q1_a">Red junglefowl</string>
+    <string name="quiz_hard_q1_w1">Ostrich</string>
+    <string name="quiz_hard_q1_w2">Peacock</string>
+    <string name="quiz_hard_q1_w3">Pheasant</string>
+    <string name="quiz_hard_q2">What does a chick use to crack its shell from inside?</string>
+    <string name="quiz_hard_q2_a">An egg tooth</string>
+    <string name="quiz_hard_q2_w1">Its spurs</string>
+    <string name="quiz_hard_q2_w2">Its wattles</string>
+    <string name="quiz_hard_q2_w3">Its comb</string>
+    <string name="quiz_hard_q3">The fleshy flaps hanging under a chicken\'s beak are…</string>
+    <string name="quiz_hard_q3_a">Wattles</string>
+    <string name="quiz_hard_q3_w1">Hackles</string>
+    <string name="quiz_hard_q3_w2">Spurs</string>
+    <string name="quiz_hard_q3_w3">Combs</string>
+    <string name="quiz_hard_q4">Eggshell colour (white, brown, blue) mostly depends on the hen\'s…</string>
+    <string name="quiz_hard_q4_a">Breed</string>
+    <string name="quiz_hard_q4_w1">Diet</string>
+    <string name="quiz_hard_q4_w2">Coop colour</string>
+    <string name="quiz_hard_q4_w3">Weather</string>
+    <string name="quiz_hard_q5">A hen that wants to sit on eggs until they hatch is called…</string>
+    <string name="quiz_hard_q5_a">Broody</string>
+    <string name="quiz_hard_q5_w1">Moulting</string>
+    <string name="quiz_hard_q5_w2">Roosting</string>
+    <string name="quiz_hard_q5_w3">Preening</string>
+    <string name="quiz_hard_q6">Chickens lose and regrow their feathers each year. This is called…</string>
+    <string name="quiz_hard_q6_a">Moulting</string>
+    <string name="quiz_hard_q6_w1">Brooding</string>
+    <string name="quiz_hard_q6_w2">Nesting</string>
+    <string name="quiz_hard_q6_w3">Dust bathing</string>
+    <string name="quiz_hard_q7">Which part of the egg feeds the growing chick?</string>
+    <string name="quiz_hard_q7_a">The yolk</string>
+    <string name="quiz_hard_q7_w1">The air cell</string>
+    <string name="quiz_hard_q7_w2">The shell</string>
+    <string name="quiz_hard_q7_w3">The chalaza</string>
+    <string name="quiz_hard_q8">Which breed is famous for laying blue-green eggs?</string>
+    <string name="quiz_hard_q8_a">Araucana</string>
+    <string name="quiz_hard_q8_w1">Leghorn</string>
+    <string name="quiz_hard_q8_w2">Rhode Island Red</string>
+    <string name="quiz_hard_q8_w3">Orpington</string>
+    <string name="quiz_hard_q9">How do chickens clean their feathers and fight mites?</string>
+    <string name="quiz_hard_q9_a">Dust bathing</string>
+    <string name="quiz_hard_q9_w1">Swimming</string>
+    <string name="quiz_hard_q9_w2">Rolling in snow</string>
+    <string name="quiz_hard_q9_w3">Standing in rain</string>
+    <string name="quiz_hard_q10">Small-sized chicken breeds are known as…</string>
+    <string name="quiz_hard_q10_a">Bantams</string>
+    <string name="quiz_hard_q10_w1">Pullets</string>
+    <string name="quiz_hard_q10_w2">Broilers</string>
+    <string name="quiz_hard_q10_w3">Capons</string>
 </resources>

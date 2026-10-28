@@ -23,6 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import com.chickierunway.game.R
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.unit.dp
@@ -62,8 +64,8 @@ fun QuizCategoryScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     GameBackground(dim = 0.05f) {
         FillScrollColumn {
-            GameTopBar(title = "Farm Quiz", onBack = onBack)
-            InfoChip(text = "Choose difficulty")
+            GameTopBar(title = stringResource(R.string.quiz_title), onBack = onBack)
+            InfoChip(text = stringResource(R.string.quiz_choose_difficulty))
             Spacer(Modifier.height(12.dp))
             Column(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 18.dp),
@@ -91,6 +93,9 @@ fun QuizCategoryScreen(
 private fun DifficultyCard(category: QuizCategory, best: Int, onPlay: () -> Unit) {
     val shape = RoundedCornerShape(24.dp)
     val total = QuizBank.QUESTIONS_PER_CATEGORY
+    val title = stringResource(category.title)
+    val tagline = stringResource(category.tagline)
+    val cardDescription = stringResource(R.string.quiz_category_cd, title, category.difficulty, tagline, best, total)
     Column(
         modifier = Modifier
             .widthIn(max = 460.dp)
@@ -104,8 +109,7 @@ private fun DifficultyCard(category: QuizCategory, best: Int, onPlay: () -> Unit
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.clearAndSetSemantics {
-                contentDescription = "${category.title}, difficulty ${category.difficulty} of 3. " +
-                    "${category.tagline}. Best score $best of $total."
+                contentDescription = cardDescription
             }
         ) {
             Image(
@@ -115,14 +119,14 @@ private fun DifficultyCard(category: QuizCategory, best: Int, onPlay: () -> Unit
             )
             Spacer(Modifier.size(12.dp))
             Column(modifier = Modifier.weight(1f)) {
-                OutlinedTitle(text = category.title, style = MaterialTheme.typography.headlineSmall, maxLines = 1)
+                OutlinedTitle(text = title, style = MaterialTheme.typography.headlineSmall, maxLines = 1)
                 Text(difficultyStars(category.difficulty), color = SunYolk, style = MaterialTheme.typography.titleLarge)
-                Text(category.tagline, color = Cream, style = MaterialTheme.typography.bodyMedium)
+                Text(tagline, color = Cream, style = MaterialTheme.typography.bodyMedium)
             }
-            InfoChip(text = "$best/$total")
+            InfoChip(text = stringResource(R.string.score_fraction, best, total))
         }
         PlateButton(
-            text = "Play ${category.title}",
+            text = stringResource(R.string.quiz_play, title),
             onClick = onPlay,
             modifier = Modifier.fillMaxWidth()
         )

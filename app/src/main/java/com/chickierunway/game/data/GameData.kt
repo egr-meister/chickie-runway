@@ -29,7 +29,14 @@ data class GameData(
     }
 }
 
+/**
+ * App settings. themeMode / accent are stored as stable string keys ("system" | "light" | "dark",
+ * "gold" | "sky" | "meadow" | "berry"); unknown values fall back to the defaults when read.
+ * The language is NOT here: AppCompatDelegate is its single source of truth.
+ */
 @Serializable
 data class Settings(
-    val soundEnabled: Boolean = true
+    val soundEnabled: Boolean = true,
+    val themeMode: String = "system",
+    val accent: String = "gold"
 )

@@ -13,10 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.chickierunway.game.Assets
+import com.chickierunway.game.R
 import com.chickierunway.game.logic.GameLogic
 import com.chickierunway.game.ui.components.FillScrollColumn
 import com.chickierunway.game.ui.components.GameBackground
@@ -31,41 +33,46 @@ import com.chickierunway.game.ui.theme.SunYolk
 fun RulesScreen(onBack: () -> Unit) {
     GameBackground(blurred = true) {
         FillScrollColumn {
-            GameTopBar(title = "Game Rules", onBack = onBack)
+            GameTopBar(title = stringResource(R.string.rules_title), onBack = onBack)
             PanelWithMascot(
                 mascot = Assets.mascotA,
                 mascotDescription = null,
-                title = "How to Play",
+                title = stringResource(R.string.rules_how_to_play),
                 mascotSize = 110.dp,
                 modifier = Modifier.padding(horizontal = 18.dp)
             ) {
                 RuleSection(
-                    "Matching Pairs",
+                    stringResource(R.string.pairs_title),
                     listOf(
-                        "Tap a card to flip it, then tap another.",
-                        "Same picture? The pair stays open. Different? Both flip back.",
-                        "Clear every pair before the timer reaches 0:00 to win.",
-                        "Clearing a level unlocks the next one — ${GameLogic.LEVEL_COUNT} levels, more cards and less time per pair.",
-                        "Pause any time: the timer stops while paused."
+                        stringResource(R.string.rules_pairs_1),
+                        stringResource(R.string.rules_pairs_2),
+                        stringResource(R.string.rules_pairs_3),
+                        stringResource(R.string.rules_pairs_4, GameLogic.LEVEL_COUNT),
+                        stringResource(R.string.rules_pairs_5)
                     )
                 )
                 // Example pair
+                val exampleName = stringResource(Assets.itemName(5))
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Image(painterResource(Assets.item(5)), contentDescription = "Example: yellow car", modifier = Modifier.size(48.dp))
+                    Image(
+                        painterResource(Assets.item(5)),
+                        contentDescription = stringResource(R.string.rules_example_cd, exampleName),
+                        modifier = Modifier.size(48.dp)
+                    )
                     Text("+", color = SunYolk, style = MaterialTheme.typography.headlineSmall)
-                    Image(painterResource(Assets.item(5)), contentDescription = "yellow car", modifier = Modifier.size(48.dp))
-                    Text("= ✓ pair", color = Cream, style = MaterialTheme.typography.titleMedium)
+                    Image(painterResource(Assets.item(5)), contentDescription = exampleName, modifier = Modifier.size(48.dp))
+                    Text(stringResource(R.string.rules_pair_equals), color = Cream, style = MaterialTheme.typography.titleMedium)
                 }
                 RuleSection(
-                    "Farm Quiz",
+                    stringResource(R.string.quiz_title),
                     listOf(
-                        "3 difficulty levels — Easy, Medium, Hard — with 10 questions each.",
-                        "Each question has 4 answers and only one is right.",
-                        "The correct answer turns green (✓); a wrong pick turns red (✗).",
-                        "Your best score for each level is saved on this device."
+                        stringResource(R.string.rules_quiz_1),
+                        stringResource(R.string.rules_quiz_2),
+                        stringResource(R.string.rules_quiz_3),
+                        stringResource(R.string.rules_quiz_4)
                     )
                 )
-                PlateButton(text = "Got it", onClick = onBack, modifier = Modifier.fillMaxWidth(0.8f))
+                PlateButton(text = stringResource(R.string.action_got_it), onClick = onBack, modifier = Modifier.fillMaxWidth(0.8f))
             }
             MascotParade(
                 mascots = listOf(Assets.mascotD, Assets.mascotC),
@@ -86,7 +93,7 @@ private fun RuleSection(title: String, lines: List<String>) {
         )
         lines.forEach { line ->
             Text(
-                text = "•  $line",
+                text = stringResource(R.string.bullet_line, line),
                 color = Cream,
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(top = 6.dp)

@@ -3,19 +3,30 @@ package com.chickierunway.game
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.chickierunway.game.data.GameData
 import com.chickierunway.game.integration.DeepLinkRouter
 import com.chickierunway.game.integration.PushService
 import com.chickierunway.game.ui.ChickieRoot
 import com.chickierunway.game.ui.components.LocalSoundManager
+import com.chickierunway.game.ui.theme.AccentColor
 import com.chickierunway.game.ui.theme.ChickieTheme
+import com.chickierunway.game.ui.theme.ThemeMode
+import com.chickierunway.game.ui.theme.isChickieDark
 
-class MainActivity : ComponentActivity() {
+/**
+ * AppCompatActivity, not ComponentActivity: AppCompatDelegate.setApplicationLocales only survives
+ * a restart below API 33 on an AppCompat activity. Do not "simplify" it back.
+ */
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
@@ -26,7 +37,17 @@ class MainActivity : ComponentActivity() {
         )
         val app = application as ChickieApp
         setContent {
-            ChickieTheme {
+            val data by app.repository.gameData.collectAsStateWithLifecycle(initialValue = GameData())
+            val themeMode = ThemeMode.from(data.settings.themeMode)
+            val dark = isChickieDark(themeMode)
+            // Night theme darkens the art, so the system-bar icons switch to light.
+            LaunchedEffect(dark) {
+                val style =
+                    if (dark) SystemBarStyle.dark(Color.TRANSPARENT)
+                    else SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT)
+                enableEdgeToEdge(statusBarStyle = style, navigationBarStyle = style)
+            }
+            ChickieTheme(themeMode = themeMode, accent = AccentColor.from(data.settings.accent)) {
                 CompositionLocalProvider(LocalSoundManager provides app.soundManager) {
                     ChickieRoot(app = app)
                 }

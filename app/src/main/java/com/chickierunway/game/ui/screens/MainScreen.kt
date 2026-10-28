@@ -31,6 +31,8 @@ import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import com.chickierunway.game.R
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
@@ -94,7 +96,7 @@ fun MainScreen(onStart: () -> Unit) {
                 Spacer(Modifier.height(8.dp))
                 Image(
                     painter = painterResource(Assets.logo),
-                    contentDescription = "Chickie Runway",
+                    contentDescription = stringResource(R.string.app_name),
                     contentScale = ContentScale.Fit,
                     modifier = Modifier
                         .fillMaxWidth(0.78f)
@@ -112,7 +114,7 @@ fun MainScreen(onStart: () -> Unit) {
 
                 Image(
                     painter = painterResource(Assets.mascotD),
-                    contentDescription = "Chickie running down the road",
+                    contentDescription = stringResource(R.string.cd_main_runner),
                     modifier = Modifier
                         .size(min(w * 0.5f, h * 0.28f))
                         .graphicsLayer {
@@ -125,11 +127,11 @@ fun MainScreen(onStart: () -> Unit) {
                 Spacer(Modifier.height(6.dp))
 
                 Box(contentAlignment = Alignment.Center) {
-                    MenuPlateButton(text = "Start", onClick = onStart, leadingIcon = Assets.item(0))
+                    MenuPlateButton(text = stringResource(R.string.main_start), onClick = onStart, leadingIcon = Assets.item(0))
                 }
 
                 Spacer(Modifier.height(10.dp))
-                InfoChip(text = "Ready, set, run!")
+                InfoChip(text = stringResource(R.string.main_tagline))
                 Spacer(Modifier.height(16.dp))
             }
         }

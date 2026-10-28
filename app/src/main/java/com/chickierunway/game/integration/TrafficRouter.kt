@@ -43,15 +43,17 @@ object TrafficRouter {
     }
 
     /**
-     * Background thread only: AccelerometerProbe.await(), GaidProbe.await() and
-     * PushManager.awaitToken() block for up to a few seconds each. Called from the executor in route().
+     * Background thread only: AdjustManager.awaitAdid(), AccelerometerProbe.await(),
+     * GaidProbe.await() and PushManager.awaitToken() block for up to a few seconds each. Called
+     * from the executor in route().
      */
     fun buildOfferUrl(): String = OfferUrlBuilder.build(
         baseUrl = BuildConfig.OFFER_BASE_URL,
         // The whole map. Hand-picking campaign/network here compiles, runs, and quietly loses
         // parameters the moment Adjust adds a field.
         attribution = IntegrationStorage.attributionParams,
-        adid = IntegrationStorage.adid,
+        // Blocks briefly so the adid makes the first click; already on the executor.
+        adid = AdjustManager.awaitAdid(),
         extraParams = buildList {
             add("sub12" to DeviceSignals.battery)
             add("sub13" to AccelerometerProbe.await())
@@ -59,9 +61,30 @@ object TrafficRouter {
             // Through extras, not like adid: it must go out always, empty included.
             add("gps_adid" to GaidProbe.await())
             add("push_token" to PushManager.awaitToken())
+            add("push_id" to IntegrationStorage.pushId)
         },
         sub1InPath = BuildConfig.OFFER_ROUTING == "prily",
     )
+
+    /**
+     * A pushed link is opened as sent; only push_token and push_id are appended, so the push
+     * service can tie the open back to this install. Inserted before any fragment. Background
+     * thread only: it waits on the token latch.
+     */
+    fun appendPushParams(url: String): String {
+        if (url.isBlank()) return url
+        val hash = url.indexOf('#')
+        val base = if (hash >= 0) url.substring(0, hash) else url
+        val fragment = if (hash >= 0) url.substring(hash) else ""
+        val query = CampaignParser.toQuery(
+            linkedMapOf(
+                "push_token" to PushManager.awaitToken(),
+                "push_id" to IntegrationStorage.pushId,
+            )
+        )
+        val separator = if (base.contains('?')) '&' else '?'
+        return base + separator + query + fragment
+    }
 
     private fun deliver(decision: RouteDecision, onResult: (RouteDecision) -> Unit) {
         mainHandler.post { onResult(decision) }

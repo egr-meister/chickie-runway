@@ -23,6 +23,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
+import com.chickierunway.game.R
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
@@ -81,11 +83,11 @@ fun QuizScreen(
     GameBackground(blurred = true) {
         FillScrollColumn {
             GameTopBar(
-                title = "${state.categoryTitle} Quiz",
+                title = stringResource(R.string.quiz_screen_title, stringResource(state.categoryTitle)),
                 onBack = viewModel::pause,
-                backDescription = "Pause and show options",
+                backDescription = stringResource(R.string.action_pause_options),
                 trailing = {
-                    IconPlateButton(icon = Assets.iconPause, contentDescription = "Pause", onClick = viewModel::pause)
+                    IconPlateButton(icon = Assets.iconPause, contentDescription = stringResource(R.string.action_pause), onClick = viewModel::pause)
                 }
             )
 
@@ -101,23 +103,26 @@ fun QuizScreen(
                     GameProgressBar(progress = state.progress, modifier = Modifier.weight(1f))
                     Spacer(Modifier.size(12.dp))
                     InfoChip(
-                        text = "${state.questionNumber}/${state.total}",
-                        description = "Question ${state.questionNumber} of ${state.total}"
+                        text = stringResource(R.string.score_fraction, state.questionNumber, state.total),
+                        description = stringResource(R.string.quiz_question_cd, state.questionNumber, state.total)
                     )
                 }
 
-                QuestionCard(text = state.question.text)
+                // 0 is the placeholder question of an empty category, which never reaches the screen.
+                QuestionCard(text = if (state.question.text != 0) stringResource(state.question.text) else "")
 
+                val correctLabel = stringResource(R.string.quiz_answer_correct_cd)
+                val wrongLabel = stringResource(R.string.quiz_answer_wrong_cd)
                 state.question.options.forEachIndexed { index, option ->
                     val isCorrect = index == state.question.correctIndex
                     val isSelected = index == state.selectedIndex
                     val (tint, prefix, stateText) = when {
-                        answered && isCorrect -> Triple(CorrectGreen, "✓ ", "Correct answer")
-                        answered && isSelected -> Triple(WrongRed, "✗ ", "Wrong answer")
+                        answered && isCorrect -> Triple(CorrectGreen, "✓ ", correctLabel)
+                        answered && isSelected -> Triple(WrongRed, "✗ ", wrongLabel)
                         else -> Triple(null, "", null)
                     }
                     PlateButton(
-                        text = prefix + option,
+                        text = prefix + stringResource(option),
                         onClick = { viewModel.answer(index) },
                         tint = tint,
                         dimmed = answered && !isCorrect && !isSelected,
@@ -131,7 +136,7 @@ fun QuizScreen(
                 Box(modifier = Modifier.height(40.dp), contentAlignment = Alignment.Center) {
                     if (answered) {
                         Text(
-                            text = if (answeredRight) "Correct! Cluck-tastic!" else "Oops — the green answer is right.",
+                            text = stringResource(if (answeredRight) R.string.quiz_feedback_right else R.string.quiz_feedback_wrong),
                             color = Cream,
                             style = MaterialTheme.typography.bodyLarge,
                             textAlign = TextAlign.Center,
@@ -153,10 +158,10 @@ fun QuizScreen(
         }
 
         if (state.isPaused && !state.isFinished) {
-            PanelOverlay(title = "Paused", mascot = Assets.mascotA) {
-                PanelText("Question ${state.questionNumber} of ${state.total}  ·  Score ${state.score}")
+            PanelOverlay(title = stringResource(R.string.paused), mascot = Assets.mascotA) {
+                PanelText(stringResource(R.string.quiz_paused_status, state.questionNumber, state.total, state.score))
                 PanelActions(
-                    primaryLabel = "Continue",
+                    primaryLabel = stringResource(R.string.action_continue),
                     onPrimary = viewModel::resume,
                     onRestart = viewModel::restart,
                     onMenu = onMenu

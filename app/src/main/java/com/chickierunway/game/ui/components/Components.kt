@@ -55,6 +55,8 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import com.chickierunway.game.R
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
@@ -75,6 +77,7 @@ import com.chickierunway.game.audio.Sfx
 import com.chickierunway.game.audio.SoundManager
 import com.chickierunway.game.ui.theme.Asphalt
 import com.chickierunway.game.ui.theme.Cream
+import com.chickierunway.game.ui.theme.LocalChickiePalette
 import com.chickierunway.game.ui.theme.NightNavy
 import com.chickierunway.game.ui.theme.Scrim
 import com.chickierunway.game.ui.theme.SunYolk
@@ -121,7 +124,9 @@ fun GameBackground(
                 .fillMaxSize()
                 .then(if (blurred) Modifier.blur(14.dp) else Modifier)
         )
-        val totalDim = (dim + if (blurred) 0.18f else 0f).coerceIn(0f, 0.9f)
+        // Dark theme lays a night sky over the art; the plates and panels stay as they are.
+        val night = LocalChickiePalette.current.backdropDim
+        val totalDim = (dim + night + if (blurred) 0.18f else 0f).coerceIn(0f, 0.9f)
         if (totalDim > 0f) {
             Box(Modifier.fillMaxSize().background(NightNavy.copy(alpha = totalDim)))
         }
@@ -391,7 +396,7 @@ fun GameTopBar(
     title: String,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
-    backDescription: String = "Back",
+    backDescription: String = stringResource(R.string.action_back),
     trailing: (@Composable () -> Unit)? = null
 ) {
     Row(
@@ -600,8 +605,8 @@ fun PanelActions(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         PlateButton(text = primaryLabel, onClick = onPrimary, modifier = Modifier.fillMaxWidth(0.9f))
-        PlateButton(text = "Restart", onClick = onRestart, modifier = Modifier.fillMaxWidth(0.9f))
-        PlateButton(text = "Menu", onClick = onMenu, modifier = Modifier.fillMaxWidth(0.9f))
+        PlateButton(text = stringResource(R.string.action_restart), onClick = onRestart, modifier = Modifier.fillMaxWidth(0.9f))
+        PlateButton(text = stringResource(R.string.action_menu), onClick = onMenu, modifier = Modifier.fillMaxWidth(0.9f))
     }
 }
 
@@ -630,17 +635,17 @@ fun GameProgressBar(progress: Float, modifier: Modifier = Modifier) {
 fun ErrorFallback(
     message: String,
     onBack: () -> Unit,
-    title: String = "Oops, wrong turn!"
+    title: String = stringResource(R.string.error_title)
 ) {
     GameBackground(blurred = true) {
         CenteredScrollColumn(modifier = Modifier.padding(24.dp)) {
             PanelWithMascot(
                 mascot = Assets.mascotC,
-                mascotDescription = "Chickie looking surprised",
+                mascotDescription = stringResource(R.string.cd_mascot_surprised),
                 title = title
             ) {
                 PanelText(message)
-                PlateButton(text = "Back", onClick = onBack, modifier = Modifier.fillMaxWidth(0.8f))
+                PlateButton(text = stringResource(R.string.action_back), onClick = onBack, modifier = Modifier.fillMaxWidth(0.8f))
             }
         }
     }

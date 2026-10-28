@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common -->
+    <string name="action_back">Назад</string>
+    <string name="action_continue">Продолжить</string>
+    <string name="action_restart">Заново</string>
+    <string name="action_menu">Меню</string>
+    <string name="action_pause">Пауза</string>
+    <string name="action_pause_options">Пауза и параметры</string>
+    <string name="action_got_it">Понятно</string>
+    <string name="action_cancel">Отмена</string>
+    <string name="action_reset">Сбросить</string>
+    <string name="action_retry">Повторить</string>
+    <string name="paused">Пауза</string>
+    <string name="error_title">Ой, не туда свернули!</string>
+    <string name="cd_mascot_surprised">Удивлённая Чикки</string>
+    <string name="cd_mascot_reacting">Чикки реагирует на ваш результат</string>
+    <string name="cd_mascot_cheering">Чикки радуется</string>
+    <string name="cd_mascot_clock">Чикки удивлена часами</string>
+    <string name="page_load_error">Не удалось загрузить страницу.</string>
+
+    <!-- Home -->
+    <string name="main_start">Старт</string>
+    <string name="main_tagline">На старт, внимание, бегом!</string>
+    <string name="cd_main_runner">Чикки бежит по дороге</string>
+
+    <!-- Menu -->
+    <string name="cd_back_to_start">Назад к старту</string>
+    <string name="menu_quiz_chip">Викторина %1$d/%2$d</string>
+    <string name="menu_quiz_chip_cd">Лучший итог викторины: %1$d из %2$d</string>
+    <string name="pairs_chip">Пары %1$d/%2$d</string>
+    <string name="menu_pairs_chip_cd">Пройдено уровней «Пар»: %1$d из %2$d</string>
+    <string name="menu_quiz">Викторина</string>
+    <string name="pairs_title">Найди пару</string>
+    <string name="results_title">Результаты</string>
+    <string name="settings_title">Настройки</string>
+
+    <!-- Quiz -->
+    <string name="quiz_title">Фермерская викторина</string>
+    <string name="quiz_choose_difficulty">Выберите сложность</string>
+    <string name="quiz_category_cd">%1$s, сложность %2$d из 3. %3$s. Лучший результат %4$d из %5$d.</string>
+    <string name="quiz_play">Играть: %1$s</string>
+    <string name="quiz_screen_title">Викторина: %1$s</string>
+    <string name="quiz_question_cd">Вопрос %1$d из %2$d</string>
+    <string name="quiz_answer_correct_cd">Верный ответ</string>
+    <string name="quiz_answer_wrong_cd">Неверный ответ</string>
+    <string name="quiz_feedback_right">Верно! Ко-ко-класс!</string>
+    <string name="quiz_feedback_wrong">Ой — правильный ответ зелёный.</string>
+    <string name="quiz_paused_status">Вопрос %1$d из %2$d  ·  Счёт %3$d</string>
+    <string name="quiz_result_perfect">Идеальный забег — настоящий чемпион фермы!</string>
+    <string name="quiz_result_great">Отличный забег! Курятник гордится.</string>
+    <string name="quiz_result_nice">Неплохо — бегите дальше!</string>
+    <string name="quiz_result_bumpy">Ухабистая дорога. Попробуйте ещё раз!</string>
+    <string name="quiz_complete">Викторина пройдена</string>
+    <string name="result_score">Счёт: %1$d/%2$d</string>
+    <string name="result_best">Лучший: %1$d/%2$d</string>
+
+    <!-- Levels / Matching Pairs -->
+    <string name="levels_cleared">Пройдено %1$d/%2$d</string>
+    <string name="levels_cleared_cd">Пройдено уровней: %1$d из %2$d</string>
+    <string name="rules_title">Правила игры</string>
+    <string name="level_locked">Закрыт</string>
+    <string name="level_cleared">★ Пройден</string>
+    <string name="level_best">Лучший %1$d/%2$d</string>
+    <plurals name="level_pairs">
+        <item quantity="one">%d пара</item>
+        <item quantity="few">%d пары</item>
+        <item quantity="many">%d пар</item>
+        <item quantity="other">%d пары</item>
+    </plurals>
+    <string name="level_cd_locked">Уровень %1$d, закрыт. Пройдите уровень %2$d, чтобы открыть.</string>
+    <string name="level_cd_cleared">Уровень %1$d, пройден. Лучший результат: %2$d из %3$d пар.</string>
+    <string name="level_cd_open">Уровень %1$d, пар: %2$d. Лучший результат: %3$d.</string>
+    <string name="pairs_level_title">Уровень %1$d</string>
+    <string name="pairs_hurry">Быстрее!</string>
+    <string name="pairs_time_cd">Осталось секунд: %1$d</string>
+    <string name="pairs_time_cd_hurry">Осталось секунд: %1$d, поторопитесь</string>
+    <string name="pairs_matched_cd">Найдено пар: %1$d из %2$d</string>
+    <string name="pairs_paused_status">Уровень %1$d  ·  осталось %2$s</string>
+    <string name="card_matched_cd">Карта %1$d, %2$s, пара найдена</string>
+    <string name="card_faceup_cd">Карта %1$d, %2$s</string>
+    <string name="card_facedown_cd">Карта %1$d, рубашкой вверх</string>
+    <string name="card_state_matched">Пара найдена</string>
+    <string name="pairs_won">Отлично!</string>
+    <string name="pairs_lost">Время вышло</string>
+    <string name="pairs_result_pairs">Пары: %1$d/%2$d</string>
+    <string name="pairs_next_unlocked">Уровень %1$d открыт. Продолжайте забег!</string>
+    <string name="pairs_all_cleared">Все %1$d уровней пройдены — дорога ваша!</string>
+    <string name="pairs_time_up">Время закончилось. Начните заново и попробуйте ещё раз.</string>
+
+    <!-- Results summary -->
+    <string name="summary_trip_log">Дневник поездки</string>
+    <string name="summary_quiz_header">Викторина — лучшие результаты</string>
+    <string name="summary_quiz_cd">Викторина «%1$s»: лучший результат %2$d из %3$d</string>
+    <string name="summary_cleared">Пройдено %1$d / %2$d</string>
+    <string name="summary_level_cleared_cd">Уровень %1$d: пройден</string>
+    <string name="summary_level_open_cd">Уровень %1$d: открыт</string>
+    <string name="summary_level_locked_cd">Уровень %1$d: закрыт</string>
+    <string name="summary_legend">✓ = пройден · число = открыт или закрыт</string>
+
+    <!-- Rules -->
+    <string name="rules_how_to_play">Как играть</string>
+    <string name="rules_pairs_1">Нажмите на карту, чтобы перевернуть её, затем на другую.</string>
+    <string name="rules_pairs_2">Одинаковые картинки? Пара остаётся открытой. Разные? Обе перевернутся обратно.</string>
+    <string name="rules_pairs_3">Найдите все пары, пока таймер не дойдёт до 0:00.</string>
+    <string name="rules_pairs_4">Пройденный уровень открывает следующий — всего %1$d уровней, больше карт и меньше времени на пару.</string>
+    <string name="rules_pairs_5">Ставьте паузу в любой момент: таймер при этом останавливается.</string>
+    <string name="rules_example_cd">Пример: %1$s</string>
+    <string name="rules_pair_equals">= ✓ пара</string>
+    <string name="rules_quiz_1">3 уровня сложности — лёгкий, средний, сложный — по 10 вопросов.</string>
+    <string name="rules_quiz_2">У каждого вопроса 4 ответа, и верный только один.</string>
+    <string name="rules_quiz_3">Верный ответ становится зелёным (✓), ошибочный — красным (✗).</string>
+    <string name="rules_quiz_4">Лучший результат на каждом уровне сохраняется на этом устройстве.</string>
+
+    <!-- Navigation fallbacks -->
+    <string name="error_quiz_missing">Такая категория викторины не найдена. Выберите другую.</string>
+    <string name="error_quiz_result">Не удалось загрузить результат. Ваши лучшие результаты сохранены.</string>
+    <string name="error_level_missing">Такого уровня нет. Выберите уровень из списка.</string>
+    <string name="error_pairs_result">Не удалось загрузить результат. Прогресс по уровням сохранён.</string>
+
+    <!-- Settings -->
+    <string name="settings_panel">Пульт управления</string>
+    <string name="settings_sound">Звуковые эффекты</string>
+    <string name="state_on">Вкл.</string>
+    <string name="state_off">Выкл.</string>
+    <string name="settings_theme">Тема</string>
+    <string name="theme_system">Системная</string>
+    <string name="theme_light">Светлая</string>
+    <string name="theme_dark">Тёмная</string>
+    <string name="settings_accent">Цвет акцента</string>
+    <string name="accent_gold">Золото</string>
+    <string name="accent_sky">Небо</string>
+    <string name="accent_meadow">Луг</string>
+    <string name="accent_berry">Ягода</string>
+    <string name="state_selected_cd">%1$s, выбрано</string>
+    <string name="settings_language">Язык</string>
+    <string name="settings_language_choose">Выберите язык</string>
+    <string name="language_system">Как в системе</string>
+    <string name="settings_privacy">Политика конфиденциальности</string>
+    <string name="settings_rate">Оценить игру</string>
+    <string name="settings_reset">Сбросить прогресс</string>
+    <string name="settings_reset_cd">Сбросить прогресс. Потребуется подтверждение.</string>
+    <string name="settings_storage_note">Ваши результаты и настройки хранятся на этом устройстве.</string>
+    <string name="settings_reset_title">Сбросить весь прогресс?</string>
+    <string name="settings_reset_text">Будут удалены все лучшие результаты викторины, а «Найди пару» вернётся к уровню 1. Отменить это нельзя.</string>
+    <string name="settings_reset_done">Прогресс сброшен</string>
+    <string name="settings_no_app">Нет приложения, чтобы открыть эту ссылку</string>
+
+    <!-- Item pictures -->
+    <string name="item_01">Клетчатый флаг</string>
+    <string name="item_02">Сигнал «Идите»</string>
+    <string name="item_03">Знак поворота</string>
+    <string name="item_04">Дорожный барьер</string>
+    <string name="item_05">Дорожный конус</string>
+    <string name="item_06">Жёлтая машина</string>
+    <string name="item_07">Пожарный гидрант</string>
+    <string name="item_08">Светофор</string>
+    <string name="item_09">Синий фургон</string>
+    <string name="item_10">Красный скутер</string>
+    <string name="item_11">Шина</string>
+    <string name="item_12">Бензоколонка</string>
+    <string name="item_13">Строительная каска</string>
+    <string name="item_14">Пешеходный переход</string>
+    <string name="item_15">Дорожный столбик</string>
+    <string name="item_16">Знак «Стоп»</string>
+    <string name="item_17">Лежачий полицейский</string>
+    <string name="item_18">Уличный фонарь</string>
+    <string name="item_unknown">Картинка</string>
+
+    <!-- Quiz levels -->
+    <string name="quiz_level_easy">Лёгкий</string>
+    <string name="quiz_level_medium">Средний</string>
+    <string name="quiz_level_hard">Сложный</string>
+    <string name="quiz_tagline_easy">Азбука фермы</string>
+    <string name="quiz_tagline_medium">Курятник и урожай</string>
+    <string name="quiz_tagline_hard">Для настоящих знатоков фермы</string>
+
+    <!-- Quiz: easy -->
+    <string name="quiz_easy_q1">Как кричит курица?</string>
+    <string name="quiz_easy_q1_a">Ко-ко</string>
+    <string name="quiz_easy_q1_w1">Му</string>
+    <string name="quiz_easy_q1_w2">Хрю</string>
+    <string name="quiz_easy_q1_w3">Бе</string>
+    <string name="quiz_easy_q2">Как называют детёныша курицы?</string>
+    <string name="quiz_easy_q2_a">Цыплёнок</string>
+    <string name="quiz_easy_q2_w1">Телёнок</string>
+    <string name="quiz_easy_q2_w2">Козлёнок</string>
+    <string name="quiz_easy_q2_w3">Поросёнок</string>
+    <string name="quiz_easy_q3">Что несёт курица?</string>
+    <string name="quiz_easy_q3_a">Яйца</string>
+    <string name="quiz_easy_q3_w1">Молоко</string>
+    <string name="quiz_easy_q3_w2">Шерсть</string>
+    <string name="quiz_easy_q3_w3">Мёд</string>
+    <string name="quiz_easy_q4">Как называют взрослого самца курицы?</string>
+    <string name="quiz_easy_q4_a">Петух</string>
+    <string name="quiz_easy_q4_w1">Бык</string>
+    <string name="quiz_easy_q4_w2">Баран</string>
+    <string name="quiz_easy_q4_w3">Селезень</string>
+    <string name="quiz_easy_q5">Какое животное фермы даёт шерсть?</string>
+    <string name="quiz_easy_q5_a">Овца</string>
+    <string name="quiz_easy_q5_w1">Корова</string>
+    <string name="quiz_easy_q5_w2">Курица</string>
+    <string name="quiz_easy_q5_w3">Лошадь</string>
+    <string name="quiz_easy_q6">Где живут куры на ферме?</string>
+    <string name="quiz_easy_q6_a">В курятнике</string>
+    <string name="quiz_easy_q6_w1">В конюшне</string>
+    <string name="quiz_easy_q6_w2">В свинарнике</string>
+    <string name="quiz_easy_q6_w3">В будке</string>
+    <string name="quiz_easy_q7">Что дают молочные коровы?</string>
+    <string name="quiz_easy_q7_a">Молоко</string>
+    <string name="quiz_easy_q7_w1">Яйца</string>
+    <string name="quiz_easy_q7_w2">Мёд</string>
+    <string name="quiz_easy_q7_w3">Шерсть</string>
+    <string name="quiz_easy_q8">Как называют детёныша коровы?</string>
+    <string name="quiz_easy_q8_a">Телёнок</string>
+    <string name="quiz_easy_q8_w1">Жеребёнок</string>
+    <string name="quiz_easy_q8_w2">Ягнёнок</string>
+    <string name="quiz_easy_q8_w3">Козлёнок</string>
+    <string name="quiz_easy_q9">Что знаменито делает петух на рассвете?</string>
+    <string name="quiz_easy_q9_a">Кукарекает</string>
+    <string name="quiz_easy_q9_w1">Крякает</string>
+    <string name="quiz_easy_q9_w2">Лает</string>
+    <string name="quiz_easy_q9_w3">Ржёт</string>
+    <string name="quiz_easy_q10">Какое животное фермы говорит «хрю»?</string>
+    <string name="quiz_easy_q10_a">Свинья</string>
+    <string name="quiz_easy_q10_w1">Коза</string>
+    <string name="quiz_easy_q10_w2">Утка</string>
+    <string name="quiz_easy_q10_w3">Осёл</string>
+
+    <!-- Quiz: medium -->
+    <string name="quiz_medium_q1">Примерно сколько дней насиживается куриное яйцо?</string>
+    <string name="quiz_medium_q1_a">21 день</string>
+    <string name="quiz_medium_q1_w1">7 дней</string>
+    <string name="quiz_medium_q1_w2">45 дней</string>
+    <string name="quiz_medium_q1_w3">90 дней</string>
+    <string name="quiz_medium_q2">Как называется красный нарост на голове курицы?</string>
+    <string name="quiz_medium_q2_a">Гребешок</string>
+    <string name="quiz_medium_q2_w1">Серёжка</string>
+    <string name="quiz_medium_q2_w2">Клюв</string>
+    <string name="quiz_medium_q2_w3">Шпора</string>
+    <string name="quiz_medium_q3">Как называют группу кур?</string>
+    <string name="quiz_medium_q3_a">Стая</string>
+    <string name="quiz_medium_q3_w1">Стадо</string>
+    <string name="quiz_medium_q3_w2">Свора</string>
+    <string name="quiz_medium_q3_w3">Косяк</string>
+    <string name="quiz_medium_q4">Молодая курица младше года — это…</string>
+    <string name="quiz_medium_q4_a">Молодка</string>
+    <string name="quiz_medium_q4_w1">Петушок</string>
+    <string name="quiz_medium_q4_w2">Гусёнок</string>
+    <string name="quiz_medium_q4_w3">Утёнок</string>
+    <string name="quiz_medium_q5">Что глотают куры, чтобы желудок перетирал пищу?</string>
+    <string name="quiz_medium_q5_a">Мелкие камешки (гравий)</string>
+    <string name="quiz_medium_q5_w1">Перья</string>
+    <string name="quiz_medium_q5_w2">Только ракушки</string>
+    <string name="quiz_medium_q5_w3">Ничего</string>
+    <string name="quiz_medium_q6">Как называют детёныша лошади?</string>
+    <string name="quiz_medium_q6_a">Жеребёнок</string>
+    <string name="quiz_medium_q6_w1">Телёнок</string>
+    <string name="quiz_medium_q6_w2">Козлёнок</string>
+    <string name="quiz_medium_q6_w3">Лебедёнок</string>
+    <string name="quiz_medium_q7">Какое зерно — классический корм для кур?</string>
+    <string name="quiz_medium_q7_a">Кукуруза</string>
+    <string name="quiz_medium_q7_w1">Какао</string>
+    <string name="quiz_medium_q7_w2">Кофе</string>
+    <string name="quiz_medium_q7_w3">Хлопок</string>
+    <string name="quiz_medium_q8">Где куры любят спать ночью?</string>
+    <string name="quiz_medium_q8_a">На насесте</string>
+    <string name="quiz_medium_q8_w1">В норе</string>
+    <string name="quiz_medium_q8_w2">В пруду</string>
+    <string name="quiz_medium_q8_w3">В улье</string>
+    <string name="quiz_medium_q9">Сушёная трава, которую запасают на корм животным, — это…</string>
+    <string name="quiz_medium_q9_a">Сено</string>
+    <string name="quiz_medium_q9_w1">Мох</string>
+    <string name="quiz_medium_q9_w2">Торф</string>
+    <string name="quiz_medium_q9_w3">Кора</string>
+    <string name="quiz_medium_q10">Как называют самца утки?</string>
+    <string name="quiz_medium_q10_a">Селезень</string>
+    <string name="quiz_medium_q10_w1">Гусак</string>
+    <string name="quiz_medium_q10_w2">Лебедь-самец</string>
+    <string name="quiz_medium_q10_w3">Индюк</string>
+
+    <!-- Quiz: hard -->
+    <string name="quiz_hard_q1">От какой дикой птицы в основном произошли домашние куры?</string>
+    <string name="quiz_hard_q1_a">Банкивская джунглевая курица</string>
+    <string name="quiz_hard_q1_w1">Страус</string>
+    <string name="quiz_hard_q1_w2">Павлин</string>
+    <string name="quiz_hard_q1_w3">Фазан</string>
+    <string name="quiz_hard_q2">Чем цыплёнок разбивает скорлупу изнутри?</string>
+    <string name="quiz_hard_q2_a">Яйцевым зубом</string>
+    <string name="quiz_hard_q2_w1">Шпорами</string>
+    <string name="quiz_hard_q2_w2">Серёжками</string>
+    <string name="quiz_hard_q2_w3">Гребешком</string>
+    <string name="quiz_hard_q3">Мясистые выросты под клювом курицы — это…</string>
+    <string name="quiz_hard_q3_a">Серёжки</string>
+    <string name="quiz_hard_q3_w1">Воротник</string>
+    <string name="quiz_hard_q3_w2">Шпоры</string>
+    <string name="quiz_hard_q3_w3">Гребешки</string>
+    <string name="quiz_hard_q4">Цвет скорлупы (белый, коричневый, голубой) в основном зависит от…</string>
+    <string name="quiz_hard_q4_a">Породы курицы</string>
+    <string name="quiz_hard_q4_w1">Корма</string>
+    <string name="quiz_hard_q4_w2">Цвета курятника</string>
+    <string name="quiz_hard_q4_w3">Погоды</string>
+    <string name="quiz_hard_q5">Курица, которая хочет насиживать яйца, называется…</string>
+    <string name="quiz_hard_q5_a">Наседка</string>
+    <string name="quiz_hard_q5_w1">Линяющая</string>
+    <string name="quiz_hard_q5_w2">Сидящая на насесте</string>
+    <string name="quiz_hard_q5_w3">Чистящая перья</string>
+    <string name="quiz_hard_q6">Каждый год куры сбрасывают и отращивают перья. Это называется…</string>
+    <string name="quiz_hard_q6_a">Линька</string>
+    <string name="quiz_hard_q6_w1">Насиживание</string>
+    <string name="quiz_hard_q6_w2">Гнездование</string>
+    <string name="quiz_hard_q6_w3">Пылевые ванны</string>
+    <string name="quiz_hard_q7">Какая часть яйца питает растущего цыплёнка?</string>
+    <string name="quiz_hard_q7_a">Желток</string>
+    <string name="quiz_hard_q7_w1">Воздушная камера</string>
+    <string name="quiz_hard_q7_w2">Скорлупа</string>
+    <string name="quiz_hard_q7_w3">Градинка</string>
+    <string name="quiz_hard_q8">Какая порода знаменита голубовато-зелёными яйцами?</string>
+    <string name="quiz_hard_q8_a">Араукана</string>
+    <string name="quiz_hard_q8_w1">Леггорн</string>
+    <string name="quiz_hard_q8_w2">Род-айленд</string>
+    <string name="quiz_hard_q8_w3">Орпингтон</string>
+    <string name="quiz_hard_q9">Как куры чистят перья и борются с клещами?</string>
+    <string name="quiz_hard_q9_a">Купаются в пыли</string>
+    <string name="quiz_hard_q9_w1">Плавают</string>
+    <string name="quiz_hard_q9_w2">Валяются в снегу</string>
+    <string name="quiz_hard_q9_w3">Стоят под дождём</string>
+    <string name="quiz_hard_q10">Мелкие породы кур называют…</string>
+    <string name="quiz_hard_q10_a">Бентамки</string>
+    <string name="quiz_hard_q10_w1">Молодки</string>
+    <string name="quiz_hard_q10_w2">Бройлеры</string>
+    <string name="quiz_hard_q10_w3">Каплуны</string>
+</resources>

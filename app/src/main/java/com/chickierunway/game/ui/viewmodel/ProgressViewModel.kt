@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.chickierunway.game.data.GameData
 import com.chickierunway.game.data.GameRepository
 import com.chickierunway.game.logic.GameLogic
+import com.chickierunway.game.ui.theme.AccentColor
+import com.chickierunway.game.ui.theme.ThemeMode
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -28,6 +30,8 @@ data class ProgressUiState(
     val quizBest: Map<String, Int> = emptyMap(),
     val pairsBest: Map<String, Int> = emptyMap(),
     val soundEnabled: Boolean = true,
+    val themeMode: ThemeMode = ThemeMode.SYSTEM,
+    val accent: AccentColor = AccentColor.GOLD,
     val levels: List<LevelUi> = ProgressViewModel.buildLevels(emptyMap()),
     val completedLevels: Int = 0
 )
@@ -43,6 +47,14 @@ class ProgressViewModel(private val repository: GameRepository) : ViewModel() {
         viewModelScope.launch { repository.setSoundEnabled(enabled) }
     }
 
+    fun setThemeMode(mode: ThemeMode) {
+        viewModelScope.launch { repository.setThemeMode(mode.key) }
+    }
+
+    fun setAccent(accent: AccentColor) {
+        viewModelScope.launch { repository.setAccent(accent.key) }
+    }
+
     fun resetAll() {
         viewModelScope.launch { repository.resetAll() }
     }
@@ -52,6 +64,8 @@ class ProgressViewModel(private val repository: GameRepository) : ViewModel() {
         quizBest = quizBest,
         pairsBest = pairsBest,
         soundEnabled = settings.soundEnabled,
+        themeMode = ThemeMode.from(settings.themeMode),
+        accent = AccentColor.from(settings.accent),
         levels = buildLevels(pairsBest),
         completedLevels = GameLogic.completedLevelsCount(pairsBest)
     )

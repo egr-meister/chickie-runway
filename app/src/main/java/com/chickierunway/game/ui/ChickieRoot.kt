@@ -33,8 +33,11 @@ import com.chickierunway.game.ui.components.GameBackground
 import com.chickierunway.game.ui.navigation.AppNavHost
 import com.chickierunway.game.ui.screens.OfferWebViewScreen
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import kotlin.coroutines.resume
 
 private const val ATTRIBUTION_TIMEOUT_MS = 8_000L
@@ -55,11 +58,19 @@ fun ChickieRoot(app: ChickieApp) {
     LaunchedEffect(reroutes) {
         if (reroutes == 0 && !withContext(Dispatchers.IO) { IntegrationStorage.hasRouteDecision() }) {
             // On a first launch the campaign URL is worthless until attribution lands — wait, but
-            // bounded: Adjust may never answer, and an endless splash is worse. getAttributionWith-
-            // Timeout returns null itself after the timeout, so this never hangs past it.
-            suspendCancellableCoroutine { continuation ->
-                AdjustManager.awaitAttribution(ATTRIBUTION_TIMEOUT_MS) {
-                    if (continuation.isActive) continuation.resume(Unit)
+            // bounded: Adjust may never answer, and an endless splash is worse. Attribution and
+            // the adid are awaited in parallel: an organic verdict can land in a second or two,
+            // and building the URL right then would let the adid miss the single click.
+            withTimeoutOrNull(ATTRIBUTION_TIMEOUT_MS + 2_000L) {
+                coroutineScope {
+                    launch {
+                        suspendCancellableCoroutine { continuation ->
+                            AdjustManager.awaitAttribution(ATTRIBUTION_TIMEOUT_MS) {
+                                if (continuation.isActive) continuation.resume(Unit)
+                            }
+                        }
+                    }
+                    launch(Dispatchers.IO) { AdjustManager.awaitAdid() }
                 }
             }
         }
@@ -71,7 +82,16 @@ fun ChickieRoot(app: ChickieApp) {
     val isBlack = deepLinkUrl != null || gate is RouteDecision.Black
     NotificationPermissionEffect(enabled = isBlack)
 
-    val currentDeepLink = deepLinkUrl
+    // A pushed link is opened as sent, with only push_token/push_id appended (off the main
+    // thread: appending waits on the token latch).
+    var deepLinkFinal by remember { mutableStateOf<String?>(null) }
+    LaunchedEffect(deepLinkUrl) {
+        val url = deepLinkUrl
+        deepLinkFinal = if (url.isNullOrBlank()) null
+        else withContext(Dispatchers.IO) { TrafficRouter.appendPushParams(url) }
+    }
+
+    val currentDeepLink = deepLinkFinal
     val decision = gate
     when {
         currentDeepLink != null ->

@@ -20,6 +20,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import com.chickierunway.game.R
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.style.TextAlign
@@ -48,18 +50,20 @@ fun SummaryScreen(viewModel: ProgressViewModel, onBack: () -> Unit) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     GameBackground(dim = 0.05f) {
         FillScrollColumn {
-            GameTopBar(title = "Results", onBack = onBack)
-            ModalPanel(title = "Trip Log", modifier = Modifier.padding(horizontal = 18.dp)) {
-                Text("Farm Quiz — best scores", color = SunYolk, style = MaterialTheme.typography.titleMedium)
+            GameTopBar(title = stringResource(R.string.results_title), onBack = onBack)
+            ModalPanel(title = stringResource(R.string.summary_trip_log), modifier = Modifier.padding(horizontal = 18.dp)) {
+                Text(stringResource(R.string.summary_quiz_header), color = SunYolk, style = MaterialTheme.typography.titleMedium)
                 QuizBank.categories.forEach { category ->
                     val best = state.quizBest[category.id] ?: 0
                     val total = QuizBank.QUESTIONS_PER_CATEGORY
+                    val title = stringResource(category.title)
+                    val rowDescription = stringResource(R.string.summary_quiz_cd, title, best, total)
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
                             .fillMaxWidth()
                             .clearAndSetSemantics {
-                                contentDescription = "${category.title} quiz: best $best of $total"
+                                contentDescription = rowDescription
                             }
                     ) {
                         Image(
@@ -71,26 +75,34 @@ fun SummaryScreen(viewModel: ProgressViewModel, onBack: () -> Unit) {
                         Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                             Row(modifier = Modifier.fillMaxWidth()) {
                                 Text(
-                                    "${category.title}  ${difficultyStars(category.difficulty)}",
+                                    "$title  ${difficultyStars(category.difficulty)}",
                                     color = Cream,
                                     style = MaterialTheme.typography.bodyLarge,
                                     modifier = Modifier.weight(1f)
                                 )
-                                Text("$best/$total", color = SunYolk, style = MaterialTheme.typography.titleMedium)
+                                Text(stringResource(R.string.score_fraction, best, total), color = SunYolk, style = MaterialTheme.typography.titleMedium)
                             }
                             GameProgressBar(progress = best.toFloat() / total)
                         }
                     }
                 }
 
-                Text("Matching Pairs", color = SunYolk, style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.pairs_title), color = SunYolk, style = MaterialTheme.typography.titleMedium)
                 Text(
-                    text = "Cleared ${state.completedLevels} / ${GameLogic.LEVEL_COUNT}",
+                    text = stringResource(R.string.summary_cleared, state.completedLevels, GameLogic.LEVEL_COUNT),
                     color = Cream,
                     style = MaterialTheme.typography.headlineSmall
                 )
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                     state.levels.forEach { level ->
+                        val levelDescription = stringResource(
+                            when {
+                                level.cleared -> R.string.summary_level_cleared_cd
+                                level.unlocked -> R.string.summary_level_open_cd
+                                else -> R.string.summary_level_locked_cd
+                            },
+                            level.level
+                        )
                         Box(
                             modifier = Modifier
                                 .weight(1f)
@@ -104,11 +116,7 @@ fun SummaryScreen(viewModel: ProgressViewModel, onBack: () -> Unit) {
                                     }
                                 )
                                 .clearAndSetSemantics {
-                                    contentDescription = "Level ${level.level}: " + when {
-                                        level.cleared -> "cleared"
-                                        level.unlocked -> "open"
-                                        else -> "locked"
-                                    }
+                                    contentDescription = levelDescription
                                 },
                             contentAlignment = Alignment.Center
                         ) {
@@ -121,7 +129,7 @@ fun SummaryScreen(viewModel: ProgressViewModel, onBack: () -> Unit) {
                         }
                     }
                 }
-                PanelText("✓ = cleared · number = open or locked", style = MaterialTheme.typography.bodyMedium)
+                PanelText(stringResource(R.string.summary_legend), style = MaterialTheme.typography.bodyMedium)
             }
             MascotParade(
                 mascots = listOf(Assets.mascotA, Assets.mascotB, Assets.mascotD),

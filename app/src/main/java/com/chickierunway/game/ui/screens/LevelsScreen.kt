@@ -34,6 +34,9 @@ import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
+import com.chickierunway.game.R
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
@@ -69,10 +72,10 @@ fun LevelsScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     GameBackground(dim = 0.05f) {
         FillScrollColumn {
-            GameTopBar(title = "Matching Pairs", onBack = onBack)
+            GameTopBar(title = stringResource(R.string.pairs_title), onBack = onBack)
             InfoChip(
-                text = "Cleared ${state.completedLevels}/${GameLogic.LEVEL_COUNT}",
-                description = "Levels cleared ${state.completedLevels} of ${GameLogic.LEVEL_COUNT}"
+                text = stringResource(R.string.levels_cleared, state.completedLevels, GameLogic.LEVEL_COUNT),
+                description = stringResource(R.string.levels_cleared_cd, state.completedLevels, GameLogic.LEVEL_COUNT)
             )
             Spacer(Modifier.height(10.dp))
 
@@ -106,7 +109,7 @@ fun LevelsScreen(
 
             Spacer(Modifier.height(16.dp))
             PlateButton(
-                text = "Game Rules",
+                text = stringResource(R.string.rules_title),
                 onClick = onRules,
                 leadingIcon = Assets.item(2),
                 modifier = Modifier.fillMaxWidth(0.78f).widthIn(max = 380.dp)
@@ -126,15 +129,15 @@ private fun LevelBubble(level: LevelUi, onClick: () -> Unit, modifier: Modifier 
     val guard = rememberClickGuard()
     val grayscale = remember { ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(0f) }) }
     val status = when {
-        !level.unlocked -> "Locked"
-        level.cleared -> "★ Cleared"
-        level.bestPairs > 0 -> "Best ${level.bestPairs}/${level.totalPairs}"
-        else -> "${level.totalPairs} pairs"
+        !level.unlocked -> stringResource(R.string.level_locked)
+        level.cleared -> stringResource(R.string.level_cleared)
+        level.bestPairs > 0 -> stringResource(R.string.level_best, level.bestPairs, level.totalPairs)
+        else -> pluralStringResource(R.plurals.level_pairs, level.totalPairs, level.totalPairs)
     }
     val description = when {
-        !level.unlocked -> "Level ${level.level}, locked. Clear level ${level.level - 1} to unlock."
-        level.cleared -> "Level ${level.level}, cleared. Best ${level.bestPairs} of ${level.totalPairs} pairs."
-        else -> "Level ${level.level}, ${level.totalPairs} pairs. Best ${level.bestPairs}."
+        !level.unlocked -> stringResource(R.string.level_cd_locked, level.level, level.level - 1)
+        level.cleared -> stringResource(R.string.level_cd_cleared, level.level, level.bestPairs, level.totalPairs)
+        else -> stringResource(R.string.level_cd_open, level.level, level.totalPairs, level.bestPairs)
     }
     Column(
         modifier = modifier

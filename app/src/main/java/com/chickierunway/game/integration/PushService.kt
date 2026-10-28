@@ -90,15 +90,15 @@ data class PushPayload(
     val url: String?,
 ) {
     companion object {
-        fun from(message: RemoteMessage): PushPayload {
-            val data = message.data
-            val notification = message.notification
-            val url = (data["url"] ?: data["link"])?.takeIf { it.isNotBlank() }
-            return PushPayload(
-                title = notification?.title ?: data["title"],
-                body = notification?.body ?: data["body"] ?: data["message"],
-                url = url,
+        fun from(message: RemoteMessage): PushPayload =
+            from(message.data, message.notification?.title, message.notification?.body)
+
+        /** Pure part of [from], so the field fallbacks are unit-testable without RemoteMessage. */
+        fun from(data: Map<String, String>, title: String?, body: String?): PushPayload =
+            PushPayload(
+                title = title ?: data["title"],
+                body = body ?: data["body"] ?: data["message"],
+                url = (data["url"] ?: data["link"])?.takeIf { it.isNotBlank() },
             )
-        }
     }
 }
