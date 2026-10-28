@@ -37,9 +37,9 @@
 -dontwarn kotlinx.serialization.**
 
 # ---- White/Black integration SDKs ----
--keep class com.appsflyer.** { *; }
--dontwarn com.appsflyer.**
+# Trackers reach their classes by reflection; without these the release build runs and fails only
+# on live traffic.
+-keep class com.adjust.sdk.** { *; }
+-dontwarn com.adjust.sdk.**
 -keep class com.android.installreferrer.** { *; }
 -dontwarn com.android.installreferrer.**
--keep class com.onesignal.** { *; }
--dontwarn com.onesignal.**

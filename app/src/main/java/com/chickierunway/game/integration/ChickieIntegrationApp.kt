@@ -4,8 +4,8 @@ import com.chickierunway.game.ChickieApp
 
 /**
  * Extends the game's own Application so its repository and sound setup run first, unchanged.
- * Order matters: storage before AppsFlyer (it reads attributionSettled), the WebView user agent
- * before anything can probe, and OneSignal after AppsFlyer so the external id can be synced.
+ * Order matters: storage first (everything else reads from it), the accelerometer window begins at
+ * launch, then Adjust, then the push token — it has to exist before the single click.
  */
 class ChickieIntegrationApp : ChickieApp() {
     override fun onCreate() {
@@ -14,8 +14,9 @@ class ChickieIntegrationApp : ChickieApp() {
         DeviceSignals.init(this)
         // The sampling window is a full second, so it has to begin at launch.
         AccelerometerProbe.start(this)
-        UserAgentProvider.init(this)
-        AppsFlyerManager.init(this)
-        OneSignalManager.init(this)
+        // Reading GAID is blocking — start it early, in the background.
+        GaidProbe.start(this)
+        AdjustManager.init(this)
+        PushManager.init(this)
     }
 }

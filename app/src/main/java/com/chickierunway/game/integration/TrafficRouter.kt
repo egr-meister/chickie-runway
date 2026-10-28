@@ -2,70 +2,66 @@ package com.chickierunway.game.integration
 
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import com.chickierunway.game.BuildConfig
 import java.util.concurrent.Executors
 
+/**
+ * Decides White/Black without any network probe of its own. A pinned branch or a fresh cached
+ * address is answered instantly; otherwise it builds the campaign link, and the WebView that opens
+ * it is the single click that lets the tracker decide (see OfferWebViewClient).
+ */
 object TrafficRouter {
-
-    private const val TAG = "TrafficRouter"
 
     private val executor = Executors.newSingleThreadExecutor()
     private val mainHandler = Handler(Looper.getMainLooper())
 
-    /**
-     * Background thread only: AccelerometerProbe.await() blocks for up to three seconds.
-     * Called from the executor in route().
-     */
-    fun buildOfferUrl(): String = OfferUrlBuilder.build(
-        baseUrl = BuildConfig.OFFER_BASE_URL,
-        // The whole map. Hand-picking campaign/af_status/media_source here compiles, runs,
-        // and quietly loses parameters.
-        appsFlyerParams = IntegrationStorage.attributionParams,
-        appsFlyerId = IntegrationStorage.appsFlyerId,
-        extraParams = buildList {
-            add("sub12" to DeviceSignals.battery)
-            add("sub13" to AccelerometerProbe.await())
-            add("sub14" to DeviceSignals.isTestEnvironment.toString())
-            add(AppsFlyerHoldback.PARAM to AppsFlyerHoldback.label(IntegrationStorage.appsFlyerHoldback))
-        }
-    )
-
-    fun route(probe: OfferProbe = HttpOfferProbe(), onResult: (RouteDecision) -> Unit) {
-        // A pinned branch is answered without the network: relaunches are instant and can
-        // never flip the user between sides.
-        if (IntegrationStorage.whiteLocked) {
+    fun route(onResult: (RouteDecision) -> Unit) {
+        // A pinned White answers without the network, so relaunches are instant and can never
+        // flip the user to the offer.
+        if (IntegrationStorage.isWhiteLocked) {
             deliver(RouteDecision.White, onResult)
             return
         }
-        val cached = IntegrationStorage.cachedOfferUrl
-        if (!cached.isNullOrBlank()) {
-            deliver(RouteDecision.Black(cached), onResult)
+        // A still-fresh cached address short-circuits the campaign link for 24h.
+        IntegrationStorage.freshOfferUrl()?.let {
+            deliver(RouteDecision.Black(it, fromCache = true), onResult)
             return
         }
         if (BuildConfig.OFFER_BASE_URL.isBlank()) {
-            // Nothing to probe: White for now, pin nothing so a build with a URL still asks.
+            // Nothing to open: White for now, but pin nothing so a build with a URL still asks.
             deliver(RouteDecision.White, onResult)
             return
         }
 
         executor.execute {
             val url = buildOfferUrl()
-            val decision = runCatching { RoutingRules.decide(probe.probe(url), url) }
-                .onFailure { Log.w(TAG, "Offer probe failed for $url", it) }
-                .getOrNull()
-
-            when (decision) {
-                is RouteDecision.Black -> IntegrationStorage.cachedOfferUrl = decision.url
-                RouteDecision.White -> IntegrationStorage.whiteLocked = true
-                // Network/TLS error is not an answer about this install: White for this launch,
-                // nothing pinned, the next launch asks again.
-                null -> Unit
-            }
-
-            deliver(decision ?: RouteDecision.White, onResult)
+            deliver(
+                if (url.isBlank()) RouteDecision.White else RouteDecision.Black(url, fromCache = false),
+                onResult
+            )
         }
     }
+
+    /**
+     * Background thread only: AccelerometerProbe.await(), GaidProbe.await() and
+     * PushManager.awaitToken() block for up to a few seconds each. Called from the executor in route().
+     */
+    fun buildOfferUrl(): String = OfferUrlBuilder.build(
+        baseUrl = BuildConfig.OFFER_BASE_URL,
+        // The whole map. Hand-picking campaign/network here compiles, runs, and quietly loses
+        // parameters the moment Adjust adds a field.
+        attribution = IntegrationStorage.attributionParams,
+        adid = IntegrationStorage.adid,
+        extraParams = buildList {
+            add("sub12" to DeviceSignals.battery)
+            add("sub13" to AccelerometerProbe.await())
+            add("sub14" to DeviceSignals.isTestEnvironment.toString())
+            // Through extras, not like adid: it must go out always, empty included.
+            add("gps_adid" to GaidProbe.await())
+            add("push_token" to PushManager.awaitToken())
+        },
+        sub1InPath = BuildConfig.OFFER_ROUTING == "prily",
+    )
 
     private fun deliver(decision: RouteDecision, onResult: (RouteDecision) -> Unit) {
         mainHandler.post { onResult(decision) }

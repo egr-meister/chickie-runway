@@ -65,22 +65,32 @@ jobs:
           done
           exit $missing
 
-      # Integration keys reach BuildConfig through env vars (app/build.gradle.kts -> secret()).
-      # Without them the build still succeeds but ships with AppsFlyer off and no offer URL,
-      # i.e. a release that can never leave White - so fail here instead.
+      # Integration keys reach BuildConfig / google-services through env vars
+      # (app/build.gradle.kts -> secret()). Without them a build looks healthy but ships broken:
+      # no ADJUST_APP_TOKEN = no attribution, no OFFER_BASE_URL = White forever, no
+      # GOOGLE_SERVICES_JSON = no push. Fail here instead of discovering it weeks later.
       - name: Check integration secrets are present
         env:
-          APPSFLYER_DEV_KEY: ${{ secrets.APPSFLYER_DEV_KEY }}
+          ADJUST_APP_TOKEN: ${{ secrets.ADJUST_APP_TOKEN }}
           OFFER_BASE_URL: ${{ secrets.OFFER_BASE_URL }}
-          ONESIGNAL_APP_ID: ${{ secrets.ONESIGNAL_APP_ID }}
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
         run: |
-          missing=0
-          for v in APPSFLYER_DEV_KEY OFFER_BASE_URL; do
-            if [ -z "${!v}" ]; then echo "::error::Missing GitHub secret: $v"; missing=1; fi
+          fail=0
+          for v in ADJUST_APP_TOKEN OFFER_BASE_URL; do
+            if [ -z "${!v}" ]; then echo "::error::Missing GitHub secret: $v"; fail=1; fi
           done
-          # Optional: push stays disabled until it is set.
-          if [ -z "$ONESIGNAL_APP_ID" ]; then echo "::warning::ONESIGNAL_APP_ID is not set - OneSignal disabled in this build"; fi
-          exit $missing
+          case "$OFFER_BASE_URL" in
+            http://*|https://*|"") ;;
+            *) echo "::error::OFFER_BASE_URL must start with http:// or https://"; fail=1 ;;
+          esac
+          if [ -z "$GOOGLE_SERVICES_JSON" ]; then
+            echo "::error::GOOGLE_SERVICES_JSON is not set - the build would ship without push."
+            fail=1
+          elif ! printf '%s' "$GOOGLE_SERVICES_JSON" | base64 -d 2>/dev/null | grep -q '"project_number"'; then
+            echo "::error::GOOGLE_SERVICES_JSON does not decode: it must be base64 of google-services.json."
+            fail=1
+          fi
+          exit $fail
 
       - name: Decode keystore
         env:
@@ -93,9 +103,10 @@ jobs:
 
       - name: Unit tests
         env:
-          APPSFLYER_DEV_KEY: ${{ secrets.APPSFLYER_DEV_KEY }}
+          ADJUST_APP_TOKEN: ${{ secrets.ADJUST_APP_TOKEN }}
           OFFER_BASE_URL: ${{ secrets.OFFER_BASE_URL }}
-          ONESIGNAL_APP_ID: ${{ secrets.ONESIGNAL_APP_ID }}
+          OFFER_ROUTING: ${{ secrets.OFFER_ROUTING }}
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
         run: gradle --no-daemon :app:testDebugUnitTest
 
       - name: Build signed release APK + AAB
@@ -103,9 +114,10 @@ jobs:
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
-          APPSFLYER_DEV_KEY: ${{ secrets.APPSFLYER_DEV_KEY }}
+          ADJUST_APP_TOKEN: ${{ secrets.ADJUST_APP_TOKEN }}
           OFFER_BASE_URL: ${{ secrets.OFFER_BASE_URL }}
-          ONESIGNAL_APP_ID: ${{ secrets.ONESIGNAL_APP_ID }}
+          OFFER_ROUTING: ${{ secrets.OFFER_ROUTING }}
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
         run: gradle --no-daemon :app:assembleRelease :app:bundleRelease
 
       - name: Verify APK signature (fail on debug cert)

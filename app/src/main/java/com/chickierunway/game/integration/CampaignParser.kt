@@ -1,7 +1,7 @@
 package com.chickierunway.game.integration
 
 /**
- * Splits an AppsFlyer `campaign` value into positional sub-parameters.
+ * Splits an Adjust `campaign` value into positional sub-parameters.
  *
  * The network packs several fields into one underscore-joined string; the tracker expects them
  * back as sub1..subN alongside the untouched original. Values are never decoded: `sub3%26` was

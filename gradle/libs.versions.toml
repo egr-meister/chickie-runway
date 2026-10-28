@@ -12,8 +12,11 @@ coroutines = "1.9.0"
 serialization = "1.7.3"
 junit = "4.13.2"
 annotation = "1.9.1"
-appsflyer = "6.14.2"
-onesignal = "5.1.6"
+adjust = "5.8.0"
+installreferrer = "2.2"
+playServicesAdsIdentifier = "18.0.1"
+firebaseBom = "34.19.0"
+googleServices = "4.4.4"
 webkit = "1.12.1"
 
 [libraries]
@@ -63,8 +66,14 @@ kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
 
 # Attribution / push (White/Black integration)
-appsflyer = { group = "com.appsflyer", name = "af-android-sdk", version.ref = "appsflyer" }
-onesignal = { group = "com.onesignal", name = "OneSignal", version.ref = "onesignal" }
+# installreferrer and play-services-ads-identifier are declared explicitly even though Adjust pulls
+# the first transitively: without Play Install Referrer and GAID, attribution degrades to organic.
+adjust = { group = "com.adjust.sdk", name = "adjust-android", version.ref = "adjust" }
+installreferrer = { group = "com.android.installreferrer", name = "installreferrer", version.ref = "installreferrer" }
+play-services-ads-identifier = { group = "com.google.android.gms", name = "play-services-ads-identifier", version.ref = "playServicesAdsIdentifier" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+# Version comes from the BOM — deliberately none here.
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
 
 androidx-webkit = { group = "androidx.webkit", name = "webkit", version.ref = "webkit" }
 
@@ -76,3 +85,4 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }

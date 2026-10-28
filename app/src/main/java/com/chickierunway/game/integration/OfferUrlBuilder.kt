@@ -1,9 +1,10 @@
 package com.chickierunway.game.integration
 
 /**
- * Assembles the offer URL:
+ * Assembles the offer URL from Adjust attribution:
  *
- *   {base}{sub1}?{all AppsFlyer params, campaign included}&sub1=..&subN=..&appsflyer_id=..#{fragment}
+ *   «АСО»:   {base}?{all attribution}&campaign=..&sub1=..&subN=..&sub12=..&push_token=..&adid=..#{fragment}
+ *   «Прилы»: {base}/{sub1}?{the same query, sub1 kept in query too}
  *
  * Built by string concatenation on purpose: android.net.Uri.Builder re-encodes values that are
  * already encoded, so a campaign carrying `%26` would reach the tracker as `%2526`.
@@ -12,13 +13,14 @@ object OfferUrlBuilder {
 
     private const val CAMPAIGN_KEY = "campaign"
     private const val SUB1_KEY = "sub1"
-    private const val APPSFLYER_ID_KEY = "appsflyer_id"
+    private const val ADID_KEY = "adid"
 
     fun build(
         baseUrl: String,
-        appsFlyerParams: Map<String, String>,
-        appsFlyerId: String?,
-        extraParams: List<Pair<String, String>> = emptyList()
+        attribution: Map<String, String>,
+        adid: String?,
+        extraParams: List<Pair<String, String>> = emptyList(),
+        sub1InPath: Boolean = false,
     ): String {
         val base = baseUrl.trim()
         if (base.isEmpty()) return ""
@@ -35,34 +37,36 @@ object OfferUrlBuilder {
         val params = LinkedHashMap<String, String>()
         parseQuery(baseQuery, params)
 
-        // Every key AppsFlyer sent, in arrival order — campaign included. Filtering to a known
-        // subset here is the most common way this integration silently loses attribution.
-        params.putAll(appsFlyerParams)
+        // Every attribution field, in arrival order. Filtering to a known subset here is the most
+        // common way this integration silently loses attribution when the network adds a key.
+        params.putAll(attribution)
 
-        val campaign = appsFlyerParams[CAMPAIGN_KEY].orEmpty()
+        val campaign = attribution[CAMPAIGN_KEY].orEmpty()
         val subs = CampaignParser.parse(campaign)
 
         // The tracker reads the raw campaign as well as its exploded parts, so it always stays.
         if (campaign.isNotEmpty()) params[CAMPAIGN_KEY] = campaign
 
-        // Parsed subs win over any sub1..subN AppsFlyer sent itself. Re-putting an existing key
+        // Parsed subs win over any sub1..subN the tracker sent itself. Re-putting an existing key
         // replaces it in place, so order stays deterministic and no key is emitted twice.
         params.putAll(subs)
 
-        // A blank id would read as "attributed to nothing" rather than "not known yet".
-        if (!appsFlyerId.isNullOrBlank()) params[APPSFLYER_ID_KEY] = appsFlyerId.trim()
-
-        // Extras (device signals) override same-named keys: a campaign of 12+ segments has its
-        // own sub12, and without this the URL would carry sub12 twice with different values.
-        // Re-putting replaces in place, so no key is emitted twice. Added unconditionally -
-        // an empty value and a missing key mean different things on the offer side.
+        // Extras (device signals, gps_adid, push token) override same-named keys: a campaign of 12+ segments
+        // has its own sub12, and without this the URL would carry sub12 twice. Added
+        // unconditionally — an empty value and a missing key mean different things on the offer side.
         extraParams.forEach { (key, value) -> params[key] = value }
 
-        val sub1 = subs[SUB1_KEY].orEmpty()
+        // adid last, matching the agreed parameter order on the offer side. A blank id would read
+        // as "attributed to nothing" rather than "not known yet".
+        if (!adid.isNullOrBlank()) params[ADID_KEY] = adid.trim()
+
         val query = CampaignParser.toQuery(params)
+        val sub1 = subs[SUB1_KEY].orEmpty()
+        // «Прилы» also carries sub1 as a path segment after the alias; «АСО» leaves the path alone.
+        val finalPath = if (sub1InPath) appendPathSegment(path, sub1) else path
 
         return buildString {
-            append(appendPathSegment(path, sub1))
+            append(finalPath)
             if (query.isNotEmpty()) {
                 append('?')
                 append(query)

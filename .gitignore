@@ -12,6 +12,10 @@ captures/
 *.ap_
 output-metadata.json
 
+# Firebase config — materialized from GOOGLE_SERVICES_JSON, never committed
+app/google-services.json
+google-services.json
+
 # IDE
 .idea/
 *.iml
