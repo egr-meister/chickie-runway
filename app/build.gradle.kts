@@ -1,3 +1,4 @@
+import java.util.Base64
 import java.util.Properties
 
 plugins {
@@ -52,7 +53,7 @@ run {
     val encoded = secret("GOOGLE_SERVICES_JSON")
     when {
         encoded.isNotBlank() -> runCatching {
-            target.writeBytes(java.util.Base64.getDecoder().decode(encoded))
+            target.writeBytes(Base64.getDecoder().decode(encoded))
         }.onFailure {
             logger.warn("GOOGLE_SERVICES_JSON is not valid base64; leaving google-services.json untouched.")
         }
@@ -60,6 +61,7 @@ run {
             logger.warn("GOOGLE_SERVICES_JSON not set - writing a stub google-services.json. Push will NOT work in this build.")
             target.writeText(stubGoogleServicesJson("com.chickierunway.game"))
         }
+        else -> Unit
     }
 }
 
